@@ -1,0 +1,402 @@
+---
+import home from '../data/home.json';
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+import { SERVICE_OPTIONS } from '../lib/quote';
+import { mark } from '../lib/text';
+
+interface Props {
+  preselect?: string;
+  alt?: boolean;
+}
+const { preselect = '', alt = false } = Astro.props;
+const q = home.quote;
+---
+
+<section class:list={['section', { 'section--alt': alt }]} id="quote">
+  <div class="container quote">
+    <div class="quote__info">
+      <span class="badge">{q.badge}</span>
+      <h2>{q.title}{' '}<span class="hl">{q.highlight}</span>{q.titleEnd && ` ${q.titleEnd}`}</h2>
+      <p class="quote__text">{q.text}</p>
+
+      <a href={site.phone.href} class="quote__call">
+        <span class="quote__call-icon"><Icon name="phone" size={24} /></span>
+        <span>
+          <small>Emergency? Call us now</small>
+          <strong>{site.phone.display}</strong>
+        </span>
+      </a>
+
+      <ul class="quote__contact">
+        <li>
+          <Icon name="mail" size={20} />
+          <!-- TODO : à confirmer avec le client — email -->
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li><Icon name="pin" size={20} /><span>{site.address.full}</span></li>
+        <li><Icon name="clock" size={20} /><span set:html={mark(site.hours)} /></li>
+      </ul>
+    </div>
+
+    <form class="qform card" method="post" action="/api/quote" novalidate data-quote-form>
+      <div class="qform__grid">
+        <div class="field">
+          <label for="q-name">Full name <span aria-hidden="true">*</span></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" required maxlength="100" />
+          <p class="field__err" id="q-name-err" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone <span aria-hidden="true">*</span></label>
+          <input id="q-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(718) 555-0123" required />
+          <p class="field__err" id="q-phone-err" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="q-email">Email <span aria-hidden="true">*</span></label>
+          <input id="q-email" name="email" type="email" autocomplete="email" required maxlength="200" />
+          <p class="field__err" id="q-email-err" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="q-service">Service <span aria-hidden="true">*</span></label>
+          <select id="q-service" name="service" required data-preselect={preselect}>
+            <option value="">Choose a service</option>
+            {SERVICE_OPTIONS.map((o) => <option value={o.value} selected={o.value === preselect}>{o.label}</option>)}
+          </select>
+          <p class="field__err" id="q-service-err" aria-live="polite"></p>
+        </div>
+        <div class="field field--full">
+          <label for="q-location">Borough or ZIP code <span aria-hidden="true">*</span></label>
+          <input id="q-location" name="location" type="text" autocomplete="postal-code" placeholder="e.g. Staten Island or 10301" required maxlength="80" />
+          <p class="field__err" id="q-location-err" aria-live="polite"></p>
+        </div>
+        <div class="field field--full">
+          <label for="q-message">Tell us about your project <span aria-hidden="true">*</span></label>
+          <textarea id="q-message" name="message" rows="5" required maxlength="3000" placeholder="Describe the problem or the work you need…"></textarea>
+          <p class="field__err" id="q-message-err" aria-live="polite"></p>
+        </div>
+        <fieldset class="field field--full field--radio">
+          <legend>Is this an emergency? <span aria-hidden="true">*</span></legend>
+          <div class="radios">
+            <label class="radio"><input type="radio" name="urgent" value="yes" /> <span>Yes, it's urgent</span></label>
+            <label class="radio"><input type="radio" name="urgent" value="no" checked /> <span>No, it can be scheduled</span></label>
+          </div>
+          <p class="field__err" id="q-urgent-err" aria-live="polite"></p>
+        </fieldset>
+
+        <!-- Anti-spam honeypot: hidden from humans, bots fill it -->
+        <div class="hp" aria-hidden="true">
+          <label for="q-company">Company website</label>
+          <input id="q-company" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" name="ts" value="" data-ts />
+      </div>
+
+      <button type="submit" class="btn btn--accent qform__submit">
+        <span data-label>Send my quote request</span>
+        <span class="btn__arrow"><Icon name="arrow" size={18} /></span>
+      </button>
+      <p class="qform__legal">We'll only use your details to respond to your request.</p>
+      <div class="qform__status" role="status" aria-live="polite" data-status hidden></div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .quote {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+  .quote__text {
+    color: var(--ink-soft);
+  }
+  .quote__call {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0;
+    padding: 18px 22px;
+    border-radius: var(--radius);
+    background: var(--navy-900);
+    color: var(--white);
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  .quote__call:hover {
+    background: var(--navy-800);
+  }
+  .quote__call-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .quote__call small {
+    display: block;
+    color: #b9c7ef;
+  }
+  .quote__call strong {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+  }
+  .quote__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .quote__contact li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .quote__contact :global(svg) {
+    margin-top: 3px;
+    color: var(--blue-600);
+  }
+
+  .qform {
+    padding: clamp(24px, 3vw, 40px);
+    box-shadow: var(--shadow);
+  }
+  .qform__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 20px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .field--full {
+    grid-column: 1 / -1;
+  }
+  .field label,
+  .field legend {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--navy-900);
+    margin-bottom: 6px;
+  }
+  .field label span,
+  .field legend span {
+    color: var(--accent-hover);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--steel-300);
+    border-radius: 12px;
+    background: var(--white);
+    font: inherit;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--blue-600);
+    box-shadow: 0 0 0 4px rgba(23, 71, 201, 0.15);
+  }
+  .field [aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+  .field__err {
+    min-height: 1.3em;
+    margin: 4px 0 8px;
+    font-size: 0.82rem;
+    color: var(--danger);
+  }
+  .field--radio {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--steel-300);
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500 !important;
+    margin: 0 !important;
+  }
+  .radio:has(input:checked) {
+    border-color: var(--blue-600);
+    background: var(--blue-50);
+  }
+  .radio input {
+    accent-color: var(--blue-600);
+    width: 18px;
+    height: 18px;
+    margin: 0;
+  }
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .qform__submit {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .qform__submit[disabled] {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  .qform__legal {
+    margin: 12px 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .qform__status {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .qform__status.is-ok {
+    background: #e8f7ee;
+    color: #0f5b2c;
+    border: 1px solid #b6e3c6;
+  }
+  .qform__status.is-error {
+    background: #fdecec;
+    color: #8a1c1c;
+    border: 1px solid #f3c0c0;
+  }
+
+  @media (max-width: 960px) {
+    .quote {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .qform__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  import { validateQuote, formatPhone, type QuoteInput } from '../lib/quote';
+
+  document.querySelectorAll<HTMLFormElement>('[data-quote-form]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = submit.querySelector<HTMLElement>('[data-label]')!;
+    const ts = form.querySelector<HTMLInputElement>('[data-ts]')!;
+    ts.value = String(Date.now());
+
+    // Preselect service from ?service=slug (links on service cards)
+    const fromUrl = new URLSearchParams(location.search).get('service');
+    const select = form.querySelector<HTMLSelectElement>('select[name="service"]')!;
+    if (fromUrl && [...select.options].some((o) => o.value === fromUrl)) select.value = fromUrl;
+
+    const read = (): QuoteInput => {
+      const fd = new FormData(form);
+      return {
+        name: String(fd.get('name') ?? ''),
+        phone: String(fd.get('phone') ?? ''),
+        email: String(fd.get('email') ?? ''),
+        service: String(fd.get('service') ?? ''),
+        location: String(fd.get('location') ?? ''),
+        message: String(fd.get('message') ?? ''),
+        urgent: String(fd.get('urgent') ?? ''),
+      };
+    };
+
+    const showErrors = (errors: Record<string, string | undefined>, focus = false) => {
+      let first: HTMLElement | null = null;
+      (['name', 'phone', 'email', 'service', 'location', 'message', 'urgent'] as const).forEach((k) => {
+        const err = form.querySelector<HTMLElement>(`#q-${k}-err`);
+        const inputs = form.querySelectorAll<HTMLElement>(`[name="${k}"]`);
+        if (err) err.textContent = errors[k] ?? '';
+        inputs.forEach((i) => {
+          i.setAttribute('aria-invalid', errors[k] ? 'true' : 'false');
+          if (err) i.setAttribute('aria-describedby', err.id);
+        });
+        if (errors[k] && !first) first = inputs[0] ?? null;
+      });
+      if (focus && first) (first as HTMLElement).focus();
+    };
+
+    // Live re-validation once a field has been touched
+    form.addEventListener('focusout', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (!t.name || t.name === 'company_website') return;
+      if (t.name === 'phone' && t.value) t.value = formatPhone(t.value);
+      const errs = validateQuote(read());
+      const err = form.querySelector<HTMLElement>(`#q-${t.name}-err`);
+      if (err && t.value) {
+        err.textContent = errs[t.name as keyof QuoteInput] ?? '';
+        t.setAttribute('aria-invalid', errs[t.name as keyof QuoteInput] ? 'true' : 'false');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.hidden = true;
+      const data = read();
+      const errors = validateQuote(data);
+      showErrors(errors, true);
+      if (Object.keys(errors).length) return;
+
+      submit.disabled = true;
+      label.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...data, company_website: (form.elements.namedItem('company_website') as HTMLInputElement).value, ts: ts.value }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
+          form.reset();
+          ts.value = String(Date.now());
+          showErrors({});
+          status.className = 'qform__status is-ok';
+          status.textContent = json.simulated
+            ? 'Thank you! (Local simulation: no email was sent because RESEND_API_KEY is not set.)'
+            : "Thank you! Your request has been sent. We'll get back to you shortly.";
+        } else {
+          if (json.errors) showErrors(json.errors, true);
+          status.className = 'qform__status is-error';
+          status.textContent = json.message ?? 'Something went wrong. Please call us at (718) 496-3230.';
+        }
+      } catch {
+        status.className = 'qform__status is-error';
+        status.textContent = 'Network error. Please try again or call us at (718) 496-3230.';
+      } finally {
+        status.hidden = false;
+        submit.disabled = false;
+        label.textContent = 'Send my quote request';
+      }
+    });
+  });
+</script>

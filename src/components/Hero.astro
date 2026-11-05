@@ -1,0 +1,103 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+
+interface Props {
+  badge: string;
+  highlight?: string;
+  title: string;
+  titleEnd?: string;
+  /** put the highlight before the title (home) or between title and titleEnd (services) */
+  highlightFirst?: boolean;
+  subtitle: string;
+  image?: string | null;
+  imageFile: string;
+  quoteHref?: string;
+  compact?: boolean;
+}
+const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, image, imageFile, quoteHref = '#quote', compact = false } = Astro.props;
+---
+
+<section class:list={['hero on-dark', { 'hero--compact': compact, 'hero--photo': !!image }]}>
+  {image && <img class="hero__bg" src={image} alt="" fetchpriority="high" />}
+  <!-- TODO : à confirmer avec le client — hero photo (see IMAGES-A-FOURNIR.md) -->
+  <div class="container hero__inner">
+    <span class="badge">{badge}</span>
+    <h1>
+      {highlightFirst ? (
+        <Fragment><span class="hl">{highlight}</span>{` ${title}`}</Fragment>
+      ) : (
+        <Fragment>{title}{highlight && <Fragment>{' '}<span class="hl">{highlight}</span></Fragment>}{titleEnd && ` ${titleEnd}`}</Fragment>
+      )}
+    </h1>
+    <p class="hero__sub">{subtitle}</p>
+    <div class="btn-row">
+      <a href={quoteHref} class="btn btn--accent">
+        Get a Free Quote <span class="btn__arrow"><Icon name="arrow" size={18} /></span>
+      </a>
+      <a href={site.phone.href} class="btn btn--outline">
+        <Icon name="phone" size={18} /> Call {site.phone.display}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    color: #c9d6ff;
+    padding-block: clamp(72px, 10vw, 150px);
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 20%, rgba(47, 123, 255, 0.35), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 10% 100%, rgba(23, 71, 201, 0.4), transparent 60%),
+      linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 55%, var(--navy-800) 100%);
+  }
+  /* subtle pipe-grid pattern from the palette (stands in until a photo is provided) */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 2px, transparent 2px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 60%);
+  }
+  .hero--photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(7, 22, 64, 0.92) 0%, rgba(7, 22, 64, 0.7) 55%, rgba(7, 22, 64, 0.35) 100%);
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero--compact {
+    padding-block: clamp(56px, 7vw, 104px);
+  }
+  .hero__inner > * {
+    max-width: 780px;
+  }
+  .hero h1 {
+    color: var(--white);
+    margin-bottom: 22px;
+  }
+  .hero--compact h1 {
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
+  }
+  .hero__sub {
+    font-size: clamp(1.02rem, 1.3vw, 1.18rem);
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+</style>

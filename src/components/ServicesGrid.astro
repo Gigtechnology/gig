@@ -1,0 +1,137 @@
+---
+import services from '../data/services.json';
+import Icon from './Icon.astro';
+import Media from './Media.astro';
+import SectionTitle from './SectionTitle.astro';
+---
+
+<section class="section section--alt" id="services">
+  <div class="container">
+    <SectionTitle
+      badge="Our services"
+      title="Everything your building needs, from"
+      highlight="pipes to sprinklers"
+      text="Four trades, one licensed team. Pick a service to learn more or request a quote for it."
+    />
+    <div class="services-grid">
+      {
+        services.map((s, i) => (
+          <article class="svc reveal">
+            <Media src={s.image} file={s.imageFile} alt={`${s.title} service`} ratio="16 / 10" class="svc__media" />
+            <div class="svc__body">
+              <div class="svc__top">
+                <span class="svc__icon">
+                  <Icon name={s.icon} size={26} />
+                </span>
+                <span class="svc__num">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3>{s.title}</h3>
+              <p>{s.short}</p>
+              <div class="svc__links">
+                <a href={s.href} class="svc__more">
+                  Learn more <Icon name="arrow" size={16} />
+                </a>
+                <a href={`/contact?service=${s.slug}#quote`} class="svc__quote">
+                  Get a quote
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: clamp(18px, 2vw, 28px);
+    align-items: stretch;
+  }
+  .svc {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--steel-200);
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .svc:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+  .svc :global(.svc__media) {
+    border-radius: 0;
+  }
+  .svc__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 26px;
+  }
+  .svc__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .svc__icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    background: var(--blue-50);
+    color: var(--blue-600);
+  }
+  .svc__num {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--blue-100);
+    line-height: 1;
+  }
+  .svc p {
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .svc__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--steel-200);
+  }
+  .svc__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--blue-600);
+    text-decoration: none;
+  }
+  .svc__quote {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent-hover);
+  }
+
+  @media (max-width: 1200px) {
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .services-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

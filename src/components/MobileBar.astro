@@ -1,0 +1,54 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+---
+
+<div class="mobilebar" role="navigation" aria-label="Quick contact">
+  <a href={site.phone.href} class="mobilebar__btn mobilebar__btn--call">
+    <Icon name="phone" size={20} /> Call
+  </a>
+  <a href="/contact#quote" class="mobilebar__btn mobilebar__btn--quote">
+    <Icon name="file" size={20} /> Free Quote
+  </a>
+</div>
+
+<style>
+  .mobilebar {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .mobilebar {
+      position: fixed;
+      z-index: 60;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      background: var(--white);
+      border-top: 1px solid var(--steel-200);
+      box-shadow: 0 -8px 24px rgba(10, 31, 92, 0.12);
+    }
+  }
+  .mobilebar__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .mobilebar__btn--call {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .mobilebar__btn--quote {
+    background: var(--blue-600);
+    color: var(--white);
+  }
+</style>

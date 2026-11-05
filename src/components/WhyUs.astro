@@ -1,0 +1,75 @@
+---
+import home from '../data/home.json';
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+
+const w = home.whyUs;
+---
+
+<section class="section section--dark" id="why-us">
+  <div class="container">
+    <SectionTitle badge={w.badge} title={w.title} highlight={w.highlight} />
+    <div class="why-grid">
+      {
+        w.items.map((item) => (
+          <article class="why reveal">
+            <span class="why__icon">
+              <Icon name={item.icon} size={26} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section--dark :global(.hl) {
+    color: var(--blue-500);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: clamp(18px, 2vw, 28px);
+  }
+  .why {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 2.4vw, 34px);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.25s, border-color 0.25s;
+  }
+  .why:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(47, 123, 255, 0.6);
+  }
+  .why__icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--blue-600);
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .why p {
+    margin: 0;
+    color: #b9c7ef;
+  }
+  @media (max-width: 1024px) {
+    .why-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .why-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

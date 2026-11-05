@@ -1,0 +1,104 @@
+{
+  "seo": {
+    "title": "GIG Technology | Plumbing, Heating, HVAC & Fire Protection in Staten Island, NY",
+    "description": "Licensed plumbing, heating, ventilation and fire protection contractor in Staten Island, NY. Serving all of NYC. Free estimates. Call (718) 496-3230."
+  },
+  "hero": {
+    "badge": "Plumbing · Heating · HVAC · Fire Protection",
+    "titleHighlight": "Plumbing & heating",
+    "title": "experts in Staten Island and across New York City",
+    "subtitle": "Homeowners, landlords and businesses trust GIG Technology for repairs, installations and inspections. Every job starts with a free, written estimate.",
+    "image": null,
+    "imageFile": "hero-home.jpg"
+  },
+  "trust": [
+    { "icon": "shield", "title": "Licensed & Insured", "text": "NYC DOB license [LICENSE_NUMBER]" },
+    { "icon": "clock", "title": "24/7 Emergency Service", "text": "Burst pipe or no heat? Call anytime" },
+    { "icon": "file", "title": "Free Estimates", "text": "Clear, written pricing before we start" }
+  ],
+  "about": {
+    "badge": "About us",
+    "title": "A trusted local contractor in",
+    "highlight": "Staten Island",
+    "titleEnd": "",
+    "paragraphs": [
+      "[ABOUT_TEXT_TO_PROVIDE] GIG Technology LLC is a plumbing, heating, ventilation and fire protection contractor based at 155 Highland Ave in Staten Island. We serve homeowners, property managers and businesses across the five boroughs.",
+      "[TEAM_TEXT_TO_PROVIDE: company history, team, values]"
+    ],
+    "checks": [
+      "Plumbing: repairs, installations and renovations",
+      "Heating: boilers, furnaces, steam and hot water",
+      "HVAC: air conditioning, mini-splits and ventilation",
+      "Fire protection: sprinklers, standpipes and inspections"
+    ],
+    "image": null,
+    "imageFile": "about-team.jpg"
+  },
+  "stats": [
+    { "value": 15, "suffix": "+", "label": "Years of experience", "todo": "[YEARS_EXPERIENCE]" },
+    { "value": 1200, "suffix": "+", "label": "Projects completed", "todo": "[PROJECTS_COMPLETED]" },
+    { "value": 98, "suffix": "%", "label": "Satisfied clients", "todo": "[SATISFACTION_RATE]" }
+  ],
+  "whyUs": {
+    "badge": "Why choose us",
+    "title": "Why Staten Island chooses",
+    "highlight": "GIG Technology",
+    "items": [
+      { "icon": "shield", "title": "Licensed professionals", "text": "Work performed under a NYC Master Plumber license, with permits filed when required." },
+      { "icon": "clock", "title": "Fast response", "text": "Same-day service when possible and around-the-clock help for emergencies." },
+      { "icon": "file", "title": "Upfront pricing", "text": "A free written estimate before any work. No surprises on the final bill." },
+      { "icon": "award", "title": "Quality workmanship", "text": "Durable materials and clean, code-compliant installations that last." },
+      { "icon": "users", "title": "Local & family-minded", "text": "Based in Staten Island. We treat your home like our own and clean up after every job." },
+      { "icon": "building", "title": "Homes & businesses", "text": "From single-family houses to multi-unit and commercial buildings." }
+    ]
+  },
+  "process": {
+    "badge": "How it works",
+    "title": "From your call to a",
+    "highlight": "job well done",
+    "steps": [
+      { "title": "Call or request a quote", "text": "Tell us what's going on by phone or with the online form." },
+      { "title": "On-site assessment", "text": "A technician inspects the problem and explains your options." },
+      { "title": "Written estimate", "text": "You receive a clear, free estimate. Work only starts once you approve." },
+      { "title": "Work done & checked", "text": "We complete the job, test everything and leave the space clean." }
+    ]
+  },
+  "reviews": {
+    "badge": "Google reviews",
+    "title": "What our",
+    "highlight": "customers",
+    "titleEnd": "say"
+  },
+  "areas": {
+    "badge": "Service areas",
+    "title": "Proudly serving",
+    "highlight": "Staten Island",
+    "titleEnd": "and all of NYC",
+    "text": "Based on Highland Ave, we reach most Staten Island neighborhoods quickly and serve the other four boroughs for planned projects and service contracts."
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently asked",
+    "highlight": "questions"
+  },
+  "contactPage": {
+    "seo": {
+      "title": "Contact & Free Quote | GIG Technology, Staten Island, NY",
+      "description": "Request a free estimate for plumbing, heating, HVAC or fire protection in Staten Island and NYC. Call (718) 496-3230 or send us your project online."
+    },
+    "badge": "Contact",
+    "title": "Get a",
+    "highlight": "free quote",
+    "titleEnd": "for your project",
+    "subtitle": "Tell us what you need and we'll reply quickly with a clear, written estimate. For emergencies, call us directly.",
+    "image": null,
+    "imageFile": "hero-contact.jpg"
+  },
+  "quote": {
+    "badge": "Free quote",
+    "title": "Get your",
+    "highlight": "free estimate",
+    "titleEnd": "today",
+    "text": "Fill out the form and we'll get back to you quickly. For emergencies, call us directly."
+  }
+}

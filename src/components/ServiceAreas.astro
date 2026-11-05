@@ -1,0 +1,114 @@
+---
+import home from '../data/home.json';
+import areas from '../data/areas.json';
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+
+const a = home.areas;
+---
+
+<section class="section section--alt" id="areas">
+  <div class="container split">
+    <div>
+      <span class="badge">{a.badge}</span>
+      <h2>{a.title}{' '}<span class="hl">{a.highlight}</span>{a.titleEnd && ` ${a.titleEnd}`}</h2>
+      <p class="areas__text">{a.text}</p>
+
+      <h3 class="areas__h">Boroughs</h3>
+      <ul class="chips chips--strong">
+        {areas.boroughs.map((b) => <li><Icon name="pin" size={16} />{b}</li>)}
+      </ul>
+
+      <!-- TODO : à confirmer avec le client — full list of neighborhoods served -->
+      <h3 class="areas__h">Staten Island neighborhoods</h3>
+      <ul class="chips">
+        {areas.primary.neighborhoods.map((n) => <li>{n}</li>)}
+        <li class="chips__more">and more</li>
+      </ul>
+    </div>
+
+    <div class="areas__map">
+      <iframe
+        src={site.address.mapsEmbed}
+        title={`Map: ${site.address.full}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <a class="areas__addr" href={site.address.mapsUrl} target="_blank" rel="noopener">
+        <Icon name="pin" size={18} />
+        {site.address.full}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .areas__text {
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .areas__h {
+    font-size: 1rem;
+    margin: 0 0 12px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+  }
+  .chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--white);
+    border: 1px solid var(--steel-200);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .chips--strong li {
+    background: var(--blue-600);
+    border-color: var(--blue-600);
+    color: var(--white);
+    font-weight: 600;
+  }
+  .chips__more {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .areas__map {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--stripes);
+    aspect-ratio: 4 / 3;
+  }
+  .areas__map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .areas__addr {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    right: 16px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    color: var(--navy-900);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+</style>

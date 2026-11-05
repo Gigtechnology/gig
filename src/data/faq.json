@@ -1,0 +1,30 @@
+[
+  {
+    "q": "What areas do you serve?",
+    "a": "We are based in Staten Island (155 Highland Ave, 10301) and serve all Staten Island neighborhoods. We also work in Brooklyn, Manhattan, Queens and the Bronx. [SERVICE_AREAS_TO_CONFIRM]"
+  },
+  {
+    "q": "Are you licensed and insured?",
+    "a": "[TO_CONFIRM] Yes. GIG Technology works under NYC DOB license [LICENSE_NUMBER] and carries [INSURANCE]. Proof of insurance is available on request."
+  },
+  {
+    "q": "Do you offer free estimates?",
+    "a": "Yes. Request a quote online or call (718) 496-3230. We give you a clear, written estimate before any work begins."
+  },
+  {
+    "q": "Do you offer 24/7 emergency service?",
+    "a": "[TO_CONFIRM] Yes, for urgent problems like burst pipes, gas smells, major leaks or loss of heat. If you smell gas, leave the building and call 911 and your utility first."
+  },
+  {
+    "q": "What are your business hours?",
+    "a": "Our regular hours are [HOURS]. Emergency calls are handled [EMERGENCY_HOURS]."
+  },
+  {
+    "q": "Which payment methods do you accept?",
+    "a": "[PAYMENT_METHODS_TO_CONFIRM]"
+  },
+  {
+    "q": "Do you work with landlords and property managers?",
+    "a": "Yes. We handle repairs, heating issues, fire protection inspections and violation corrections for multi-family and commercial buildings."
+  }
+]

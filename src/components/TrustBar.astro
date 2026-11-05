@@ -1,0 +1,75 @@
+---
+import home from '../data/home.json';
+import Icon from './Icon.astro';
+import { mark } from '../lib/text';
+---
+
+<!-- TODO : à confirmer avec le client — Licensed & Insured / 24/7 Emergency / Free Estimates -->
+<section class="trust" aria-label="Why customers trust us">
+  <div class="container trust__grid">
+    {
+      home.trust.map((t) => (
+        <div class="trust__item">
+          <span class="trust__icon">
+            <Icon name={t.icon} size={26} />
+          </span>
+          <div>
+            <strong>{t.title}</strong>
+            <span set:html={mark(t.text)} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .trust {
+    width: 100%;
+    background: var(--blue-600);
+    color: var(--white);
+  }
+  .trust__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .trust__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 26px clamp(12px, 2vw, 32px);
+  }
+  .trust__item + .trust__item {
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .trust__item strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+  }
+  .trust__item span:not(.trust__icon) {
+    font-size: 0.9rem;
+    color: #dbe7ff;
+  }
+  .trust__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  @media (max-width: 860px) {
+    .trust__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .trust__item {
+      padding: 18px 0;
+    }
+    .trust__item + .trust__item {
+      border-left: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+  }
+</style>

@@ -1,0 +1,284 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : !href.includes('#') && path.startsWith(href));
+---
+
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label={`${site.name} — home`}>
+      <img
+        src="/logo-160.webp"
+        srcset="/logo-160.webp 160w, /logo-320.webp 320w"
+        sizes="68px"
+        width="68"
+        height="68"
+        alt={`${site.legalName} logo`}
+      />
+      <span class="header__brand">
+        <strong>GIG Technology</strong>
+        <small>{site.tagline}</small>
+      </span>
+    </a>
+
+    <nav class="header__nav" id="main-nav" aria-label="Main navigation" data-nav>
+      <ul>
+        {
+          site.nav.map((item) => (
+            <li>
+              <a href={item.href} class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/contact#quote" class="btn btn--primary btn--plain header__nav-quote">Get a Free Quote</a>
+    </nav>
+
+    <div class="header__actions">
+      <a href={site.phone.href} class="header__phone" aria-label={`Call ${site.phone.display}`}>
+        <span class="header__phone-icon"><Icon name="phone" size={18} /></span>
+        <span class="header__phone-num">{site.phone.display}</span>
+      </a>
+      <a href={site.phone.href} class="btn btn--accent header__call">
+        Call Now <span class="btn__arrow"><Icon name="phone" size={16} /></span>
+      </a>
+      <button class="header__burger" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu" data-burger>
+        <span class="i-open"><Icon name="menu" size={26} /></span>
+        <span class="i-close"><Icon name="close" size={26} /></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: var(--white);
+    border-bottom: 1px solid var(--steel-200);
+    transition: box-shadow 0.2s;
+  }
+  .header.is-scrolled {
+    box-shadow: var(--shadow);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: var(--header-h);
+  }
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .header__logo img {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+  }
+  .header__brand {
+    display: none;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .header__brand strong {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--navy-900);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+  }
+  .header__brand small {
+    color: var(--blue-600);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .header__nav {
+    margin-inline: auto;
+  }
+  .header__nav ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 1.6vw, 28px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .header__nav a:not(.btn) {
+    position: relative;
+    display: block;
+    padding: 8px 0;
+    color: var(--navy-900);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .header__nav a:not(.btn)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    height: 2px;
+    background: var(--blue-600);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .header__nav a:not(.btn):hover::after,
+  .header__nav a.active::after {
+    transform: scaleX(1);
+  }
+  .header__nav a.active {
+    color: var(--blue-600);
+  }
+  .header__nav-quote {
+    display: none;
+  }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .header__phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--navy-900);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .header__phone-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--blue-600);
+  }
+  .header__burger {
+    display: none;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--blue-50);
+    color: var(--navy-900);
+    cursor: pointer;
+    place-items: center;
+  }
+  .header__burger .i-close {
+    display: none;
+  }
+  .header__burger[aria-expanded='true'] .i-open {
+    display: none;
+  }
+  .header__burger[aria-expanded='true'] .i-close {
+    display: block;
+  }
+
+  @media (min-width: 1600px) {
+    .header__brand {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 1360px) {
+    .header__phone-num {
+      display: none;
+    }
+  }
+
+  /* Tablet & mobile: burger menu */
+  @media (max-width: 1100px) {
+    .header__burger {
+      display: grid;
+    }
+    .header__nav {
+      position: fixed;
+      inset: var(--header-h) 0 auto 0;
+      max-height: calc(100dvh - var(--header-h));
+      overflow-y: auto;
+      background: var(--white);
+      border-top: 1px solid var(--steel-200);
+      box-shadow: var(--shadow-lg);
+      padding: 12px var(--gutter) 24px;
+      transform: translateY(-8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+    .header__nav.is-open {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+    }
+    .header__nav ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .header__nav a:not(.btn) {
+      padding: 14px 0;
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--steel-200);
+    }
+    .header__nav a:not(.btn)::after {
+      display: none;
+    }
+    .header__nav-quote {
+      display: flex;
+      width: 100%;
+      margin-top: 18px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .header__logo img {
+      width: 56px;
+      height: 56px;
+    }
+    .header__call,
+    .header__phone {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+
+  const setOpen = (open: boolean) => {
+    if (!burger || !nav) return;
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    nav.classList.toggle('is-open', open);
+  };
+
+  burger?.addEventListener('click', () => setOpen(burger.getAttribute('aria-expanded') !== 'true'));
+  nav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && setOpen(false));
+
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

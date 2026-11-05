@@ -1,0 +1,26 @@
+---
+interface Props {
+  badge?: string;
+  title: string;
+  highlight?: string;
+  titleEnd?: string;
+  text?: string;
+  as?: 'h1' | 'h2';
+  align?: 'center' | 'left';
+}
+const { badge, title, highlight, titleEnd, text, as: Tag = 'h2', align = 'center' } = Astro.props;
+---
+
+<div class:list={['section-head', { 'section-head--left': align === 'left' }]}>
+  {badge && <span class="badge">{badge}</span>}
+  <Tag>{title}{highlight && <Fragment>{' '}<span class="hl">{highlight}</span></Fragment>}{titleEnd && ` ${titleEnd}`}</Tag>
+  {text && <p>{text}</p>}
+  <slot />
+</div>
+
+<style>
+  .section-head--left {
+    text-align: left;
+    margin-inline: 0;
+  }
+</style>

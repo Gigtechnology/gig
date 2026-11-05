@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import About from '../components/About.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Process from '../components/Process.astro';
+import Reviews from '../components/Reviews.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import home from '../data/home.json';
+import faq from '../data/faq.json';
+
+const h = home.hero;
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq
+    .filter((f) => !/\[[A-Z_]+\]/.test(f.a))
+    .map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<BaseLayout title={home.seo.title} description={home.seo.description} jsonLd={[faqSchema]}>
+  <Hero badge={h.badge} highlight={h.titleHighlight} title={h.title} highlightFirst subtitle={h.subtitle} image={h.image} imageFile={h.imageFile} />
+  <TrustBar />
+  <ServicesGrid />
+  <About />
+  <WhyUs />
+  <Process />
+  <Reviews />
+  <ServiceAreas />
+  <Faq />
+  <QuoteForm alt />
+</BaseLayout>

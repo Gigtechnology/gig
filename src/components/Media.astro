@@ -1,0 +1,30 @@
+---
+/**
+ * Image slot. Shows the photo when `src` is set, otherwise a palette pattern
+ * with the expected filename (listed in IMAGES-A-FOURNIR.md).
+ */
+interface Props {
+  src?: string | null;
+  file: string;
+  alt: string;
+  ratio?: string;
+  class?: string;
+  eager?: boolean;
+}
+const { src, file, alt, ratio = '4 / 3', class: className = '', eager = false } = Astro.props;
+---
+
+<div class:list={['media', className]} style={`aspect-ratio: ${ratio}`}>
+  {
+    src ? (
+      <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    ) : (
+      <>
+        {/* TODO : à confirmer avec le client — photo to provide */}
+        <span class="media__label" role="img" aria-label={alt}>
+          Photo: {file}
+        </span>
+      </>
+    )
+  }
+</div>

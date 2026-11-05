@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import TrustBar from './TrustBar.astro';
+import Media from './Media.astro';
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+import Process from './Process.astro';
+import Reviews from './Reviews.astro';
+import Faq from './Faq.astro';
+import QuoteForm from './QuoteForm.astro';
+import services from '../data/services.json';
+import site from '../data/site.json';
+import { mark } from '../lib/text';
+
+interface Props {
+  slug: string;
+}
+const s = services.find((x) => x.slug === Astro.props.slug)!;
+const others = services.filter((x) => x.slug !== s.slug);
+const siteUrl = Astro.site!;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: s.title,
+  name: `${s.title} in Staten Island, NY`,
+  description: s.seo.description,
+  provider: { '@id': `${siteUrl.origin}/#business` },
+  areaServed: [{ '@type': 'City', name: 'Staten Island' }, { '@type': 'City', name: 'New York City' }],
+  url: new URL(s.href, siteUrl).href,
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: s.title,
+    itemListElement: s.items.map((i) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: i.title } })),
+  },
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl.origin + '/' },
+    { '@type': 'ListItem', position: 2, name: s.title, item: new URL(s.href, siteUrl).href },
+  ],
+};
+---
+
+<BaseLayout title={s.seo.title} description={s.seo.description} jsonLd={[serviceSchema, breadcrumb]}>
+  <Hero compact badge={s.hero.badge} title={s.hero.title} highlight={s.hero.highlight} titleEnd={s.hero.titleEnd} subtitle={s.hero.subtitle} image={s.image} imageFile={s.imageFile} />
+  <TrustBar />
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <span class="badge">{s.title}</span>
+        <h2>{s.intro.title}{' '}<span class="hl">{s.intro.highlight}</span>{` ${s.intro.titleEnd}`}</h2>
+        <p class="svc-intro__text" set:html={mark(s.intro.text)} />
+        <ul class="checks">
+          <li><span class="tick"><Icon name="check" size={15} stroke={3} /></span>Free, written estimate before any work</li>
+          <li><span class="tick"><Icon name="check" size={15} stroke={3} /></span><span set:html={`${mark(site.license.label)} (#${mark(site.license.number)})`} /></li>
+          <li><span class="tick"><Icon name="check" size={15} stroke={3} /></span>Residential &amp; commercial, Staten Island and all of NYC</li>
+        </ul>
+        <div class="btn-row">
+          <a href="#quote" class="btn btn--accent">Get a Free Quote <span class="btn__arrow"><Icon name="arrow" size={18} /></span></a>
+          <a href={site.phone.href} class="btn btn--outline"><Icon name="phone" size={18} /> {site.phone.display}</a>
+        </div>
+      </div>
+      <Media src={s.intro.image} file={s.intro.imageFile} alt={`${s.title} work by GIG Technology`} ratio="5 / 4" />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <SectionTitle badge="What we do" title={`Our ${s.title.toLowerCase()}`} highlight="services" text="Click a service to request a quote for it." />
+      <div class="items-grid">
+        {
+          s.items.map((item, i) => (
+            <a href={`?service=${s.slug}#quote`} class="item reveal">
+              <span class="item__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <span class="item__cta">Request a quote <Icon name="arrow" size={16} /></span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Process />
+  <Reviews />
+  <Faq items={s.faq} title={`${s.title}:`} highlight="your questions" alt />
+
+  <section class="section others">
+    <div class="container">
+      <SectionTitle title="Other services from" highlight="GIG Technology" />
+      <div class="others-grid">
+        {
+          others.map((o) => (
+            <a href={o.href} class="other">
+              <span class="other__icon"><Icon name={o.icon} size={26} /></span>
+              <span>
+                <strong>{o.title}</strong>
+                <small>{o.short}</small>
+              </span>
+              <Icon name="arrow" size={20} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <QuoteForm preselect={s.slug} alt />
+</BaseLayout>
+
+<style>
+  .svc-intro__text {
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: clamp(18px, 2vw, 28px);
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 2.4vw, 32px);
+    background: var(--white);
+    border: 1px solid var(--steel-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    color: inherit;
+    text-decoration: none;
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .item:hover {
+    border-color: var(--blue-600);
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+  }
+  .item__num {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--blue-600);
+    margin-bottom: 16px;
+  }
+  .item p {
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .item__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--blue-600);
+  }
+  .others-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .other {
+    display: grid;
+    grid-template-columns: 56px 1fr 20px;
+    gap: 16px;
+    align-items: center;
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--steel-200);
+    background: var(--white);
+    color: var(--blue-600);
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .other:hover {
+    border-color: var(--blue-600);
+    box-shadow: var(--shadow);
+  }
+  .other__icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--blue-50);
+  }
+  .other strong {
+    display: block;
+    font-family: var(--font-heading);
+    color: var(--navy-900);
+  }
+  .other small {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  @media (max-width: 1024px) {
+    .items-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .others-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .items-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,52 @@
+/* Design tokens — palette taken from the GIG Technology logo */
+:root {
+  /* Blues (logo) */
+  --blue-700: #1238a8;
+  --blue-600: #1747c9; /* "GIG" letters, pipes */
+  --blue-500: #2f7bff; /* highlights, water drop */
+  --blue-100: #dbe7ff;
+  --blue-50: #eef4ff;
+  --navy-950: #071640;
+  --navy-900: #0a1f5c; /* "TECHNOLOGY" */
+  --navy-800: #122b75;
+
+  /* Neutrals */
+  --steel-300: #c9ced6; /* chrome flanges */
+  --steel-200: #e1e5eb;
+  --gray-50: #f6f8fb;
+  --white: #ffffff;
+  --ink: #1a2233;
+  --ink-soft: #4a5568;
+
+  /* Accent for call-to-action buttons */
+  --accent: #f2711c;
+  --accent-hover: #d95e0c;
+  --accent-ink: #ffffff;
+
+  --success: #16a34a;
+  --danger: #c62828;
+  --star: #fbbc04;
+
+  /* Typography */
+  --font-heading: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --container: 1280px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --section-y: clamp(64px, 8vw, 112px);
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --header-h: 84px;
+  --shadow-sm: 0 2px 8px rgba(10, 31, 92, 0.06);
+  --shadow: 0 10px 30px rgba(10, 31, 92, 0.1);
+  --shadow-lg: 0 24px 60px rgba(10, 31, 92, 0.16);
+
+  /* Placeholder stripes (image slots without a photo yet) */
+  --stripes: repeating-linear-gradient(
+    -45deg,
+    var(--blue-50) 0 22px,
+    var(--blue-100) 22px 44px
+  );
+}

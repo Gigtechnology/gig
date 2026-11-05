@@ -1,0 +1,316 @@
+---
+import home from '../data/home.json';
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+import { getReviews } from '../lib/places';
+import { usDate, isPlaceholder } from '../lib/text';
+
+const data = await getReviews();
+const r = home.reviews;
+const googleUrl = data.url ?? (isPlaceholder(site.social.google) ? site.address.mapsUrl : site.social.google);
+const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(n));
+---
+
+<section class="section" id="reviews">
+  <div class="container">
+    <SectionTitle badge={r.badge} title={r.title} highlight={r.highlight} titleEnd={r.titleEnd} />
+
+    <div class="rv-summary">
+      <span class="rv-g" aria-hidden="true">G</span>
+      <div>
+        <div class="rv-summary__score">
+          <strong>{data.rating.toFixed(1)}</strong>
+          <span class="rv-stars" aria-label={`${data.rating.toFixed(1)} out of 5 stars`}>
+            {stars(data.rating).map((on) => <Icon name="star" size={20} class={on ? 'on' : 'off'} />)}
+          </span>
+        </div>
+        <span class="rv-summary__count">
+          {data.source === 'google' ? `Based on ${data.total} Google reviews` : 'Demo reviews — connect Google Places API to show real reviews'}
+        </span>
+      </div>
+      <a href={googleUrl} class="btn btn--outline btn--sm" target="_blank" rel="noopener">See all on Google</a>
+    </div>
+
+    {data.source === 'demo' && <p class="rv-demo-note">{/* TODO : à confirmer avec le client */}Example content — not real customer reviews.</p>}
+
+    <div class="slider" data-slider>
+      <div class="slider__track" data-track tabindex="0" aria-label="Customer reviews" role="region">
+        {
+          data.reviews.map((rev) => (
+            <figure class="rv">
+              <div class="rv__head">
+                {rev.photo ? (
+                  <img src={rev.photo} alt="" width="44" height="44" loading="lazy" referrerpolicy="no-referrer" class="rv__avatar" />
+                ) : (
+                  <span class="rv__avatar rv__avatar--initial">{rev.author.charAt(0)}</span>
+                )}
+                <figcaption>
+                  <strong>{rev.author}</strong>
+                  <span>{usDate(rev.date)}</span>
+                </figcaption>
+              </div>
+              <span class="rv-stars" aria-label={`${rev.rating} out of 5 stars`}>
+                {stars(rev.rating).map((on) => <Icon name="star" size={17} class={on ? 'on' : 'off'} />)}
+              </span>
+              <blockquote>{rev.text}</blockquote>
+            </figure>
+          ))
+        }
+      </div>
+      <div class="slider__controls">
+        <button type="button" class="slider__btn" data-prev aria-label="Previous reviews"><Icon name="chevronLeft" size={22} /></button>
+        <div class="slider__dots" data-dots></div>
+        <button type="button" class="slider__btn" data-next aria-label="Next reviews"><Icon name="chevronRight" size={22} /></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rv-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px 28px;
+    margin: -16px auto 40px;
+    padding: 18px 28px;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: var(--radius);
+    background: var(--gray-50);
+    border: 1px solid var(--steel-200);
+  }
+  .rv-g {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #4285f4;
+  }
+  .rv-summary__score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .rv-summary__score strong {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--navy-900);
+    line-height: 1;
+  }
+  .rv-summary__count {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  .btn--sm {
+    min-height: 44px;
+    padding: 6px 20px;
+    font-size: 0.9rem;
+  }
+  .rv-demo-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: -24px;
+  }
+  .rv-stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+  .rv-stars :global(.on) {
+    color: var(--star);
+  }
+  .rv-stars :global(.off) {
+    color: var(--steel-300);
+  }
+
+  /* Slider: CSS scroll-snap + buttons */
+  .slider {
+    --per-view: 3;
+    --gap: clamp(16px, 2vw, 28px);
+  }
+  .slider__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+    gap: var(--gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+  .slider__track::-webkit-scrollbar {
+    display: none;
+  }
+  .rv {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+    padding: clamp(22px, 2.2vw, 30px);
+    background: var(--white);
+    border: 1px solid var(--steel-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .rv__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .rv__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .rv__avatar--initial {
+    display: grid;
+    place-items: center;
+    background: var(--blue-600);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+  .rv figcaption {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .rv figcaption strong {
+    color: var(--navy-900);
+  }
+  .rv figcaption span {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .rv blockquote {
+    margin: 0;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .slider__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .slider__btn {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--steel-300);
+    background: var(--white);
+    color: var(--navy-900);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .slider__btn:hover:not(:disabled) {
+    background: var(--blue-600);
+    border-color: var(--blue-600);
+    color: var(--white);
+  }
+  .slider__btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .slider__dots {
+    display: flex;
+    gap: 8px;
+  }
+  .slider__dots :global(button) {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 999px;
+    border: 0;
+    background: var(--steel-300);
+    cursor: pointer;
+    transition: width 0.2s, background-color 0.2s;
+  }
+  .slider__dots :global(button[aria-current='true']) {
+    width: 28px;
+    background: var(--blue-600);
+  }
+  @media (max-width: 1024px) {
+    .slider {
+      --per-view: 2;
+    }
+  }
+  @media (max-width: 680px) {
+    .slider {
+      --per-view: 1;
+    }
+    .slider__track {
+      grid-auto-columns: 88%;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-slider]').forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>('[data-track]')!;
+    const prev = slider.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = slider.querySelector<HTMLButtonElement>('[data-next]')!;
+    const dotsWrap = slider.querySelector<HTMLElement>('[data-dots]')!;
+    const slides = Array.from(track.children) as HTMLElement[];
+
+    const step = () => {
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return slides[0].getBoundingClientRect().width + gap;
+    };
+    const pages = () => {
+      const perView = Math.max(1, Math.round(track.clientWidth / step()));
+      return Math.max(1, slides.length - perView + 1);
+    };
+    const current = () => Math.round(track.scrollLeft / step());
+
+    const renderDots = () => {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < pages(); i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `Go to review ${i + 1}`);
+        b.addEventListener('click', () => track.scrollTo({ left: i * step() }));
+        dotsWrap.appendChild(b);
+      }
+      update();
+    };
+    const update = () => {
+      const i = current();
+      const last = pages() - 1;
+      prev.disabled = i <= 0;
+      next.disabled = i >= last;
+      dotsWrap.querySelectorAll('button').forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+      slider.querySelector('.slider__controls')?.toggleAttribute('hidden', last === 0);
+    };
+
+    prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
+    next.addEventListener('click', () => track.scrollBy({ left: step() }));
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') track.scrollBy({ left: step() });
+      if (e.key === 'ArrowLeft') track.scrollBy({ left: -step() });
+    });
+    renderDots();
+    if ('ResizeObserver' in window) new ResizeObserver(renderDots).observe(track);
+    else window.addEventListener('resize', renderDots);
+  });
+</script>

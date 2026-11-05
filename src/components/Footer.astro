@@ -1,0 +1,185 @@
+---
+import site from '../data/site.json';
+import services from '../data/services.json';
+import Icon from './Icon.astro';
+import { mark, isPlaceholder } from '../lib/text';
+
+const year = new Date().getFullYear();
+const socials = Object.entries(site.social).filter(([, url]) => !isPlaceholder(url));
+---
+
+<footer class="footer on-dark">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label={`${site.name} — home`}>
+        <img src="/logo-320.webp" width="140" height="140" alt={`${site.legalName} logo`} loading="lazy" />
+      </a>
+      <p>Plumbing, heating, ventilation and fire protection for homes and businesses in Staten Island and across New York City.</p>
+      <p class="footer__slogan">“{site.tagline}”</p>
+      <!-- TODO : à confirmer avec le client — social media links -->
+      {
+        socials.length > 0 && (
+          <ul class="footer__social">
+            {socials.map(([name, url]) => (
+              <li>
+                <a href={url} rel="noopener" target="_blank">
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div>
+      <h3>Services</h3>
+      <ul class="footer__links">
+        {services.map((s) => <li><a href={s.href}>{s.title}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h3>Company</h3>
+      <ul class="footer__links">
+        <li><a href="/#about">About us</a></li>
+        <li><a href="/#reviews">Reviews</a></li>
+        <li><a href="/#areas">Service areas</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Contact</h3>
+      <ul class="footer__contact">
+        <li>
+          <Icon name="phone" size={18} />
+          <a href={site.phone.href}>{site.phone.display}</a>
+        </li>
+        <li>
+          <Icon name="mail" size={18} />
+          <!-- TODO : à confirmer avec le client — email -->
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <Icon name="pin" size={18} />
+          <a href={site.address.mapsUrl} target="_blank" rel="noopener">
+            {site.address.street}<br />{site.address.city}, {site.address.state} {site.address.zip}
+          </a>
+        </li>
+        <li>
+          <Icon name="clock" size={18} />
+          <!-- TODO : à confirmer avec le client — hours -->
+          <span set:html={mark(site.hours)} />
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>© {year} {site.legalName}. All rights reserved.</p>
+      <!-- TODO : à confirmer avec le client — license & insurance -->
+      <p set:html={`${mark(site.license.label)} #${mark(site.license.number)} · Insured: ${mark(site.insurance)}`} />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    width: 100%;
+    background: var(--navy-950);
+    color: #b9c7ef;
+    padding-top: clamp(56px, 7vw, 88px);
+    font-size: 0.95rem;
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+    gap: clamp(28px, 4vw, 56px);
+    padding-bottom: 48px;
+  }
+  .footer__logo {
+    display: inline-block;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 8px;
+    margin-bottom: 18px;
+  }
+  .footer__logo img {
+    width: 120px;
+    height: 120px;
+  }
+  .footer__slogan {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+  .footer h3 {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 18px;
+  }
+  .footer a {
+    color: #dbe4ff;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+  .footer__links,
+  .footer__contact,
+  .footer__social {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .footer__contact li {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .footer__contact :global(svg) {
+    margin-top: 4px;
+    color: var(--blue-500);
+  }
+  .footer__social {
+    grid-auto-flow: column;
+    justify-content: start;
+    text-transform: capitalize;
+  }
+  .footer__bottom {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .footer__bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-block: 20px;
+    font-size: 0.85rem;
+  }
+  .footer__bottom p {
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .footer__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

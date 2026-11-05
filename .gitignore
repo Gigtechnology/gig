@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+# design references (template screenshots, alternate logo) - not part of the site
+_reference/

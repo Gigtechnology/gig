@@ -1,0 +1,122 @@
+---
+import home from '../data/home.json';
+import defaultFaq from '../data/faq.json';
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+import { mark } from '../lib/text';
+
+interface Props {
+  items?: { q: string; a: string }[];
+  title?: string;
+  highlight?: string;
+  alt?: boolean;
+}
+const { items = defaultFaq, title = home.faq.title, highlight = home.faq.highlight, alt = false } = Astro.props;
+const group = 'faq';
+---
+
+<section class:list={['section', { 'section--alt': alt }]} id="faq">
+  <div class="container">
+    <SectionTitle badge={home.faq.badge} title={title} highlight={highlight} />
+    <div class="faq">
+      {
+        items.map((item, i) => (
+          <details class="faq__item" name={group} open={i === 0}>
+            <summary>
+              <span>{item.q}</span>
+              <span class="faq__icon">
+                <Icon name="chevronDown" size={20} />
+              </span>
+            </summary>
+            <div class="faq__a">
+              <p set:html={mark(item.a)} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    max-width: 880px;
+    margin-inline: auto;
+    display: grid;
+    gap: 14px;
+  }
+  .faq__item {
+    background: var(--white);
+    border: 1px solid var(--steel-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s;
+  }
+  .faq__item[open] {
+    border-color: var(--blue-600);
+  }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--navy-900);
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--blue-600);
+    transition: transform 0.25s, background-color 0.25s, color 0.25s;
+  }
+  .faq__item[open] .faq__icon {
+    transform: rotate(180deg);
+    background: var(--blue-600);
+    color: var(--white);
+  }
+  .faq__a {
+    padding: 0 24px 20px;
+    color: var(--ink-soft);
+  }
+  .faq__a p {
+    margin: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .faq__item::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
+    }
+    .faq__item[open]::details-content {
+      block-size: auto;
+    }
+  }
+  :global(html) {
+    interpolate-size: allow-keywords;
+  }
+</style>
+
+<script>
+  // Exclusive accordion fallback for browsers without <details name="">
+  const supportsName = 'name' in HTMLDetailsElement.prototype;
+  if (!supportsName) {
+    document.querySelectorAll<HTMLDetailsElement>('.faq__item').forEach((d) => {
+      d.addEventListener('toggle', () => {
+        if (!d.open) return;
+        d.parentElement?.querySelectorAll<HTMLDetailsElement>('.faq__item[open]').forEach((o) => o !== d && (o.open = false));
+      });
+    });
+  }
+</script>

@@ -1,0 +1,23 @@
+{
+  "_todo": "[SERVICE_AREAS_TO_CONFIRM] Neighborhood list to confirm with the client.",
+  "primary": {
+    "name": "Staten Island",
+    "neighborhoods": [
+      "St. George",
+      "Tompkinsville",
+      "Stapleton",
+      "New Brighton",
+      "West Brighton",
+      "Silver Lake",
+      "Grymes Hill",
+      "Port Richmond",
+      "Westerleigh",
+      "Castleton Corners",
+      "New Dorp",
+      "Great Kills",
+      "Eltingville",
+      "Tottenville"
+    ]
+  },
+  "boroughs": ["Staten Island", "Brooklyn", "Manhattan", "Queens", "The Bronx"]
+}

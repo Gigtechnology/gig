@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "plumbing",
+    "href": "/plumbing",
+    "icon": "wrench",
+    "title": "Plumbing",
+    "short": "Leak repairs, drain cleaning, water heaters, gas lines and full repiping for homes and buildings.",
+    "image": null,
+    "imageFile": "service-plumbing.jpg",
+    "seo": {
+      "title": "Plumber in Staten Island, NY | GIG Technology",
+      "description": "Licensed plumber in Staten Island and NYC: emergency leak repair, drain cleaning, water heaters, gas lines and repiping. Free estimates. Call (718) 496-3230."
+    },
+    "hero": {
+      "badge": "Plumbing",
+      "title": "Plumbing services in",
+      "highlight": "Staten Island",
+      "titleEnd": "and across NYC",
+      "subtitle": "From a dripping faucet to a full building repipe, our licensed plumbers fix it right the first time, with clear pricing before any work begins."
+    },
+    "intro": {
+      "title": "Your plumbing needs, from",
+      "highlight": "leaks",
+      "titleEnd": "to full renovations",
+      "text": "[SERVICE_TEXT_TO_PROVIDE] GIG Technology handles residential and commercial plumbing across Staten Island and the five boroughs. Every job starts with an honest diagnosis and a written estimate.",
+      "image": null,
+      "imageFile": "plumbing-intro.jpg"
+    },
+    "items": [
+      { "title": "Emergency leak repair", "text": "Burst pipes, leaking fixtures and hidden water damage, handled fast to protect your property." },
+      { "title": "Drain & sewer cleaning", "text": "Clogged sinks, showers, toilets and main sewer lines cleared with professional equipment." },
+      { "title": "Water heaters", "text": "Repair and replacement of tank and tankless water heaters, gas or electric." },
+      { "title": "Gas line work", "text": "Gas piping installation, repair and leak testing by a licensed professional." },
+      { "title": "Repiping", "text": "Replace old galvanized or corroded pipes with durable copper or PEX." },
+      { "title": "Kitchen & bathroom fixtures", "text": "Sinks, faucets, toilets, showers and tubs installed or upgraded cleanly." }
+    ],
+    "faq": [
+      { "q": "Do you handle plumbing emergencies at night?", "a": "[TO_CONFIRM] Yes, we respond to plumbing emergencies 24/7 in Staten Island. Call (718) 496-3230 and describe the problem; we will tell you right away when a plumber can be on site." },
+      { "q": "Can you file permits with the NYC Department of Buildings?", "a": "[TO_CONFIRM] Yes. Work that requires a permit, such as gas piping or repiping, is filed with the NYC DOB under our Master Plumber license." },
+      { "q": "Do you work on commercial buildings?", "a": "Yes, we work on single-family homes, multi-family buildings, stores and offices." }
+    ]
+  },
+  {
+    "slug": "heating",
+    "href": "/heating",
+    "icon": "flame",
+    "title": "Heating",
+    "short": "Boiler and furnace installation, steam and hot-water systems, radiators and seasonal tune-ups.",
+    "image": null,
+    "imageFile": "service-heating.jpg",
+    "seo": {
+      "title": "Heating & Boiler Repair in Staten Island, NY | GIG Technology",
+      "description": "Boiler and furnace repair, installation and maintenance in Staten Island and NYC. Steam and hot-water heating, radiators, tune-ups. Call (718) 496-3230."
+    },
+    "hero": {
+      "badge": "Heating",
+      "title": "Reliable",
+      "highlight": "heating",
+      "titleEnd": "for New York winters",
+      "subtitle": "Boilers, furnaces, steam and hot-water systems installed and repaired by technicians who know NYC buildings."
+    },
+    "intro": {
+      "title": "Stay warm with a",
+      "highlight": "heating system",
+      "titleEnd": "you can count on",
+      "text": "[SERVICE_TEXT_TO_PROVIDE] Whether your building runs on steam, hot water or forced air, we diagnose the problem, explain your options and keep the heat on all winter.",
+      "image": null,
+      "imageFile": "heating-intro.jpg"
+    },
+    "items": [
+      { "title": "Boiler repair & replacement", "text": "Gas and oil boilers serviced, repaired or replaced with high-efficiency models." },
+      { "title": "Furnace service", "text": "Furnace repair, installation and safety checks for forced-air systems." },
+      { "title": "Steam & hot-water systems", "text": "Balancing, venting and repair of the steam and hydronic systems common in NYC buildings." },
+      { "title": "Radiators & baseboards", "text": "Radiator repair, replacement, valves and baseboard heating installation." },
+      { "title": "Seasonal tune-ups", "text": "Annual maintenance to improve efficiency and avoid mid-winter breakdowns." },
+      { "title": "No-heat emergencies", "text": "Fast response when the heat goes out, especially for tenants and landlords." }
+    ],
+    "faq": [
+      { "q": "When should I schedule a boiler tune-up?", "a": "Ideally in early fall, before the heating season starts. A tune-up catches small problems before they become no-heat calls." },
+      { "q": "Should I repair or replace my old boiler?", "a": "It depends on age, efficiency and repair costs. We give you an honest comparison with both prices so you can decide." }
+    ]
+  },
+  {
+    "slug": "ventilation-hvac",
+    "href": "/ventilation-hvac",
+    "icon": "fan",
+    "title": "Ventilation & HVAC",
+    "short": "Ductless mini-splits, central air, ductwork, ventilation and indoor air quality solutions.",
+    "image": null,
+    "imageFile": "service-hvac.jpg",
+    "seo": {
+      "title": "HVAC & Ventilation Services in Staten Island, NY | GIG Technology",
+      "description": "AC installation, ductless mini-splits, ductwork and ventilation in Staten Island and NYC. Repairs, maintenance and free estimates. Call (718) 496-3230."
+    },
+    "hero": {
+      "badge": "Ventilation & HVAC",
+      "title": "Year-round",
+      "highlight": "comfort",
+      "titleEnd": "for homes and businesses",
+      "subtitle": "Air conditioning, ductless mini-splits, ductwork and ventilation designed for NYC apartments, houses and commercial spaces."
+    },
+    "intro": {
+      "title": "Cleaner air and",
+      "highlight": "better comfort",
+      "titleEnd": "in every room",
+      "text": "[SERVICE_TEXT_TO_PROVIDE] We size, install and maintain heating and cooling equipment so it runs quietly and efficiently, and we design ventilation that keeps indoor air healthy.",
+      "image": null,
+      "imageFile": "hvac-intro.jpg"
+    },
+    "items": [
+      { "title": "Ductless mini-splits", "text": "Efficient heating and cooling for apartments and additions without ductwork." },
+      { "title": "Central air conditioning", "text": "AC installation, repair and replacement with properly sized equipment." },
+      { "title": "Ductwork", "text": "New duct design and installation, sealing and repair of existing ducts." },
+      { "title": "Ventilation & exhaust", "text": "Kitchen and bathroom exhaust, fresh-air and commercial ventilation systems." },
+      { "title": "Indoor air quality", "text": "Filtration, humidity control and air exchange solutions." },
+      { "title": "Maintenance plans", "text": "Scheduled check-ups that extend equipment life and lower energy bills." }
+    ],
+    "faq": [
+      { "q": "Is a ductless mini-split a good fit for my apartment?", "a": "Often, yes. Mini-splits heat and cool without ductwork and are very efficient. We visit, measure and recommend the right size." },
+      { "q": "How often should HVAC equipment be serviced?", "a": "We recommend a check-up once a year for heating and once a year for cooling, or twice a year for heat pumps." }
+    ]
+  },
+  {
+    "slug": "fire-protection",
+    "href": "/fire-protection",
+    "icon": "extinguisher",
+    "title": "Fire Protection",
+    "short": "Sprinkler systems, standpipes, inspections and testing to keep your building safe and compliant.",
+    "image": null,
+    "imageFile": "service-fire-protection.jpg",
+    "seo": {
+      "title": "Fire Sprinkler & Standpipe Services in Staten Island, NY | GIG Technology",
+      "description": "Fire sprinkler installation, standpipe systems, inspections and testing in Staten Island and NYC. Keep your building safe and compliant. Call (718) 496-3230."
+    },
+    "hero": {
+      "badge": "Fire Protection",
+      "title": "Fire protection that keeps",
+      "highlight": "your building",
+      "titleEnd": "safe and compliant",
+      "subtitle": "Sprinkler systems, wet and dry standpipes, inspections and testing for residential and commercial buildings across NYC."
+    },
+    "intro": {
+      "title": "Sprinklers, standpipes and",
+      "highlight": "inspections",
+      "titleEnd": "done by the book",
+      "text": "[SERVICE_TEXT_TO_PROVIDE] We install, repair and inspect fire protection systems so your building meets NYC Fire Code and DOB requirements. [CERTIFICATIONS]",
+      "image": null,
+      "imageFile": "fire-protection-intro.jpg"
+    },
+    "items": [
+      { "title": "Sprinkler installation", "text": "New wet and dry sprinkler systems for residential and commercial buildings." },
+      { "title": "Sprinkler repair & retrofits", "text": "Head replacement, leak repair, system modifications for renovations." },
+      { "title": "Standpipe systems", "text": "Wet and dry standpipe installation, repair and hydrostatic testing." },
+      { "title": "Inspections & testing", "text": "Periodic inspection, testing and maintenance with clear written reports." },
+      { "title": "Backflow prevention", "text": "Backflow preventer installation and annual testing for your water supply." },
+      { "title": "Violation clearing", "text": "Help correcting fire protection violations and preparing for re-inspection." }
+    ],
+    "faq": [
+      { "q": "How often do sprinkler systems need to be inspected?", "a": "[TO_CONFIRM] Sprinkler systems require regular inspections and tests under the NYC Fire Code and NFPA 25. We set up a schedule that matches your building's requirements." },
+      { "q": "Can you help clear a fire protection violation?", "a": "[TO_CONFIRM] Yes. Send us the violation and we will explain what work is needed and how quickly it can be done." }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "_readme": "DEMO reviews, shown only when GOOGLE_PLACES_API_KEY / PLACE_ID are not set. Never published as real reviews.",
+  "rating": 5.0,
+  "total": 0,
+  "reviews": [
+    { "author": "Demo reviewer", "rating": 5, "date": "2026-09-14", "text": "Example review. Real Google reviews will appear here once the Places API key is configured." },
+    { "author": "Demo reviewer", "rating": 5, "date": "2026-08-02", "text": "Example review. Fast response for a leaking pipe, clear explanation and a fair price." },
+    { "author": "Demo reviewer", "rating": 5, "date": "2026-06-21", "text": "Example review. Our boiler was replaced in one day and the team left everything clean." },
+    { "author": "Demo reviewer", "rating": 5, "date": "2026-05-10", "text": "Example review. They handled our building's sprinkler inspection and paperwork without any hassle." },
+    { "author": "Demo reviewer", "rating": 4, "date": "2026-03-28", "text": "Example review. Professional install of two mini-splits, on time and as quoted." }
+  ]
+}

@@ -1,0 +1,162 @@
+---
+import home from '../data/home.json';
+import Icon from './Icon.astro';
+import Media from './Media.astro';
+import { mark } from '../lib/text';
+
+const a = home.about;
+---
+
+<section class="section" id="about">
+  <!--
+    Grid: image in column 1 spans both rows; text (row 1) and counters (row 2) in column 2.
+    The image stretches, so its top edge aligns with the text top and its bottom edge with the counter cards.
+  -->
+  <div class="container about">
+    <div class="about__media">
+      <Media src={a.image} file={a.imageFile} alt="The GIG Technology team at work" ratio="auto" class="about__img" />
+    </div>
+
+    <div class="about__text">
+      <span class="badge">{a.badge}</span>
+      <h2>{a.title}{' '}<span class="hl">{a.highlight}</span>{a.titleEnd && ` ${a.titleEnd}`}</h2>
+      {a.paragraphs.map((p) => <p set:html={mark(p)} />)}
+      <ul class="checks">
+        {
+          a.checks.map((c) => (
+            <li>
+              <span class="tick">
+                <Icon name="check" size={15} stroke={3} />
+              </span>
+              {c}
+            </li>
+          ))
+        }
+      </ul>
+      <a href="#quote" class="btn btn--accent">
+        Request a quote <span class="btn__arrow"><Icon name="arrow" size={18} /></span>
+      </a>
+    </div>
+
+    <!-- TODO : à confirmer avec le client — years of experience, projects, satisfaction -->
+    <ul class="about__stats">
+      {
+        home.stats.map((s) => (
+          <li class="stat">
+            <span class="stat__num">
+              <span data-count={s.value}>0</span>
+              {s.suffix}
+            </span>
+            <span class="stat__label">{s.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'media text'
+      'media stats';
+    column-gap: clamp(32px, 5vw, 80px);
+    row-gap: 36px;
+  }
+  .about__media {
+    grid-area: media;
+    display: flex;
+  }
+  .about__media :global(.about__img) {
+    flex: 1;
+    min-height: 360px;
+    height: 100%;
+  }
+  .about__text {
+    grid-area: text;
+  }
+  .about__text p {
+    color: var(--ink-soft);
+  }
+  .about__stats {
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-self: end;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 18px;
+    border-radius: var(--radius);
+    background: var(--navy-900);
+    color: #c9d6ff;
+  }
+  .stat__num {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat__label {
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 960px) {
+    .about {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'text' 'media' 'stats';
+    }
+    .about__media :global(.about__img) {
+      aspect-ratio: 4 / 3 !important;
+      min-height: 0;
+    }
+  }
+  @media (max-width: 520px) {
+    .about__stats {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  const fmt = new Intl.NumberFormat('en-US');
+  const animate = (el: HTMLElement) => {
+    const target = Number(el.dataset.count) || 0;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = fmt.format(target);
+      return;
+    }
+    const duration = 1600;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt.format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          animate(e.target as HTMLElement);
+          io.unobserve(e.target);
+        }
+      }),
+    { threshold: 0.5 }
+  );
+  counters.forEach((c) => io.observe(c));
+</script>

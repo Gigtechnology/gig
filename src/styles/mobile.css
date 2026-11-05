@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Base mobile / tablet overrides for global primitives
+   (component-specific breakpoints live in each component)
+   ========================================================================== */
+@media (max-width: 960px) {
+  :root {
+    --header-h: 72px;
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    /* room for the fixed bottom call bar */
+    padding-bottom: 76px;
+  }
+
+  .btn {
+    white-space: normal;
+  }
+
+  .btn-row .btn {
+    flex: 1 1 100%;
+  }
+
+  .section-head {
+    text-align: left;
+  }
+}

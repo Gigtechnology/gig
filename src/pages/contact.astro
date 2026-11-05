@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import Faq from '../components/Faq.astro';
+import faq from '../data/faq.json';
+import home from '../data/home.json';
+
+const c = home.contactPage;
+---
+
+<BaseLayout title={c.seo.title} description={c.seo.description}>
+  <Hero compact badge={c.badge} title={c.title} highlight={c.highlight} titleEnd={c.titleEnd} subtitle={c.subtitle} image={c.image} imageFile={c.imageFile} />
+  <QuoteForm />
+  <ServiceAreas />
+  <Faq items={faq.slice(0, 5)} />
+</BaseLayout>

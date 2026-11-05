@@ -1,0 +1,52 @@
+{
+  "_readme": "Central business info. Values in [BRACKETS] are placeholders to confirm with the client.",
+  "name": "GIG Technology",
+  "legalName": "GIG Technology LLC",
+  "tagline": "Doing God's Work",
+  "category": "Plumbing, Heating, HVAC & Fire Protection Contractor",
+  "phone": {
+    "display": "(718) 496-3230",
+    "e164": "+17184963230",
+    "href": "tel:+17184963230"
+  },
+  "email": "gigtechnology@gmail.com",
+  "emailConfirmed": false,
+  "address": {
+    "street": "155 Highland Ave",
+    "city": "Staten Island",
+    "state": "NY",
+    "zip": "10301",
+    "country": "US",
+    "full": "155 Highland Ave, Staten Island, NY 10301",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=155+Highland+Ave%2C+Staten+Island%2C+NY+10301",
+    "mapsEmbed": "https://maps.google.com/maps?q=155%20Highland%20Ave%2C%20Staten%20Island%2C%20NY%2010301&z=12&output=embed"
+  },
+  "hours": "[HOURS]",
+  "emergencyHours": "[EMERGENCY_HOURS]",
+  "license": {
+    "label": "NYC DOB Licensed Master Plumber",
+    "number": "[LICENSE_NUMBER]"
+  },
+  "fireLicense": "[FIRE_SUPPRESSION_LICENSE_NUMBER]",
+  "insurance": "[INSURANCE]",
+  "certifications": ["[CERTIFICATIONS]"],
+  "yearsExperience": "[YEARS_EXPERIENCE]",
+  "foundedYear": "[FOUNDED_YEAR]",
+  "social": {
+    "facebook": "[FACEBOOK_URL]",
+    "instagram": "[INSTAGRAM_URL]",
+    "google": "[GOOGLE_BUSINESS_URL]"
+  },
+  "areaServed": ["Staten Island", "New York City"],
+  "logo": "/logo.jpg",
+  "ogImage": "/og-default.jpg",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Plumbing", "href": "/plumbing" },
+    { "label": "Heating", "href": "/heating" },
+    { "label": "HVAC", "href": "/ventilation-hvac" },
+    { "label": "Fire Protection", "href": "/fire-protection" },
+    { "label": "Reviews", "href": "/#reviews" },
+    { "label": "Contact", "href": "/contact" }
+  ]
+}
