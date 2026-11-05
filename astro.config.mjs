@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 // TODO : à confirmer avec le client — final production domain
-const SITE_URL = process.env.SITE_URL || 'https://gig-technology.vercel.app';
+const SITE_URL = process.env.SITE_URL || 'https://gig-yvpk.vercel.app';
 
 export default defineConfig({
   site: SITE_URL,
