@@ -19,7 +19,18 @@ const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, ima
 ---
 
 <section class:list={['hero on-dark', { 'hero--compact': compact, 'hero--photo': !!image }]}>
-  {image && <img class="hero__bg" src={image} alt="" fetchpriority="high" />}
+  {
+    image && (
+      <img
+        class="hero__bg"
+        src={image}
+        srcset={/\.jpe?g$/i.test(image) && image.startsWith('/images/') ? `${image.replace(/\.jpe?g$/i, '-800.jpg')} 800w, ${image} 1920w` : undefined}
+        sizes="100vw"
+        alt=""
+        fetchpriority="high"
+      />
+    )
+  }
   <!-- TODO : à confirmer avec le client — hero photo (see IMAGES-A-FOURNIR.md) -->
   <div class="container hero__inner">
     <span class="badge">{badge}</span>

@@ -10,14 +10,17 @@ interface Props {
   ratio?: string;
   class?: string;
   eager?: boolean;
+  sizes?: string;
 }
-const { src, file, alt, ratio = '4 / 3', class: className = '', eager = false } = Astro.props;
+const { src, file, alt, ratio = '4 / 3', class: className = '', eager = false, sizes = '(max-width: 960px) 100vw, 50vw' } = Astro.props;
+// Photos in /images/ have an 800 px "-800.jpg" variant (npm run images)
+const srcset = src && /^\/images\/.+\.jpe?g$/i.test(src) ? `${src.replace(/\.jpe?g$/i, '-800.jpg')} 800w, ${src} 1600w` : undefined;
 ---
 
 <div class:list={['media', className]} style={`aspect-ratio: ${ratio}`}>
   {
     src ? (
-      <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      <img src={src} srcset={srcset} sizes={srcset ? sizes : undefined} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
     ) : (
       <>
         {/* TODO : à confirmer avec le client — photo to provide */}

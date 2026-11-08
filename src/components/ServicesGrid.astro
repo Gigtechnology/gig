@@ -17,7 +17,7 @@ import SectionTitle from './SectionTitle.astro';
       {
         services.map((s, i) => (
           <article class="svc reveal">
-            <Media src={s.image} file={s.imageFile} alt={`${s.title} service`} ratio="16 / 10" class="svc__media" />
+            <Media src={s.image} file={s.imageFile} alt={`${s.title} service`} ratio="16 / 10" class="svc__media" sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 320px" />
             <div class="svc__body">
               <div class="svc__top">
                 <span class="svc__icon">
