@@ -3,8 +3,8 @@ import { defineConfig, envField } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
-// TODO : à confirmer avec le client — final production domain
-const SITE_URL = process.env.SITE_URL || 'https://gig-yvpk.vercel.app';
+// Production domain (Vercel redirects gigtechnology.pro -> www)
+const SITE_URL = process.env.SITE_URL || 'https://www.gigtechnology.pro';
 
 export default defineConfig({
   site: SITE_URL,

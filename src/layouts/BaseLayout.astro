@@ -26,7 +26,7 @@ interface Props {
 }
 const { title, description, image = site.ogImage, jsonLd = [], noindex = false } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL('https://gig-yvpk.vercel.app');
+const siteUrl = Astro.site ?? new URL('https://www.gigtechnology.pro');
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = new URL(image, siteUrl).href;
 
