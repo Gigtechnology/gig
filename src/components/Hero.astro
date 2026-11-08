@@ -14,11 +14,13 @@ interface Props {
   imageFile: string;
   quoteHref?: string;
   compact?: boolean;
+  /** desktop: photo on the right 64%, text on a solid left panel */
+  photoSide?: boolean;
 }
-const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, image, imageFile, quoteHref = '#quote', compact = false } = Astro.props;
+const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, image, imageFile, quoteHref = '#quote', compact = false, photoSide = false } = Astro.props;
 ---
 
-<section class:list={['hero on-dark', { 'hero--compact': compact, 'hero--photo': !!image }]}>
+<section class:list={['hero on-dark', { 'hero--compact': compact, 'hero--photo': !!image, 'hero--side': !!image && photoSide }]}>
   {
     image && (
       <img
@@ -92,6 +94,27 @@ const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, ima
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  /* Photo kept on the right on desktop so the subject is not hidden behind the text */
+  @media (min-width: 1101px) {
+    .hero--side .hero__bg {
+      left: auto;
+      width: 64%;
+      object-position: 50% 30%;
+    }
+    .hero--side::after {
+      background: linear-gradient(
+        90deg,
+        var(--navy-950) 0%,
+        var(--navy-950) 36%,
+        rgba(7, 22, 64, 0.55) 50%,
+        rgba(7, 22, 64, 0.05) 75%,
+        rgba(7, 22, 64, 0) 100%
+      );
+    }
+    .hero--side .hero__inner > * {
+      max-width: 640px;
+    }
   }
   .hero--compact {
     padding-block: clamp(56px, 7vw, 104px);

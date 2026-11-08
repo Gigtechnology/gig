@@ -1,6 +1,6 @@
 # Images — GIG Technology
 
-Les 11 emplacements utilisent pour l'instant des **photos libres de droits Unsplash** (licence Unsplash : usage commercial autorisé, sans attribution obligatoire). Remplacez-les dès que possible par de **vraies photos de chantiers et de l'équipe GIG Technology**, en priorité la photo About, qui montre une personne extérieure à l'entreprise.
+Les 11 emplacements utilisent pour l'instant des **photos libres de droits Unsplash** (licence Unsplash : usage commercial autorisé, sans attribution obligatoire). Remplacez-les dès que possible par de **vraies photos de chantiers et de l'équipe GIG Technology**, en commençant par les cartes de services.
 
 **Pour remplacer une photo :**
 1. Remplacez le fichier dans `public/images/` en gardant **exactement le même nom**.
@@ -11,8 +11,8 @@ Formats conseillés : JPG, qualité 75-80 %, moins de 450 Ko.
 
 | # | Fichier | Dimensions | Section / page | Photo actuelle (Unsplash) |
 |---|---|---|---|---|
-| 1 | `hero-home.jpg` | 1920 × 1080 | Accueil, Hero | Ferry de Staten Island et statue de la Liberté — unsplash.com/photos/Yb2IPAgthno |
-| 2 | `about-team.jpg` | 900 × 1100 (portrait) | Accueil, About | Ouvrier en casque jaune — unsplash.com/photos/zWOgsj3j0wA (**à remplacer en priorité**) |
+| 1 | `hero-home.jpg` | 1920 × 1080 | Accueil, Hero | ✅ Photo fournie par le client (technicien GIG devant le camion) |
+| 2 | `about-team.jpg` | 900 × 1100 (portrait) | Accueil, About | ✅ Photo fournie par le client (technicien GIG devant la camionnette) |
 | 3 | `service-plumbing.jpg` | 1920 × 1200 | Carte Plumbing + Hero de la page Plumbing | Plombier sous un évier — unsplash.com/photos/c314Gh8dXAo |
 | 4 | `service-heating.jpg` | 1920 × 1200 | Carte Heating + Hero de la page Heating | Chaufferie — unsplash.com/photos/xYeGSXRhV80 |
 | 5 | `service-hvac.jpg` | 1920 × 1200 | Carte HVAC + Hero de la page HVAC | Unités de climatisation — unsplash.com/photos/Rr4rmrcqRYE |
