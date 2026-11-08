@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "GIG Technology | Plumbing, Heating, HVAC & Fire Protection in Staten Island, NY",
-    "description": "Licensed plumbing, heating, ventilation and fire protection contractor in Staten Island, NY. Serving all of NYC. Free estimates. Call (718) 496-3230."
+    "description": "Plumbing, heating, ventilation and fire protection contractor in Staten Island, NY. Serving all of NYC. Free estimates. Call (718) 496-3230."
   },
   "hero": {
     "badge": "Plumbing · Heating · HVAC · Fire Protection",
@@ -13,9 +13,9 @@
   },
   "trust": [
     {
-      "icon": "shield",
-      "title": "Licensed & Insured",
-      "text": "NYC DOB license [LICENSE_NUMBER]"
+      "icon": "pin",
+      "title": "Local Staten Island Team",
+      "text": "Serving all five boroughs of NYC"
     },
     {
       "icon": "clock",
@@ -73,8 +73,8 @@
     "items": [
       {
         "icon": "shield",
-        "title": "Licensed professionals",
-        "text": "Work performed under a NYC Master Plumber license, with permits filed when required."
+        "title": "Experienced technicians",
+        "text": "Skilled pros who know NYC homes and buildings, from brownstones to commercial spaces."
       },
       {
         "icon": "clock",

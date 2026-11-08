@@ -4,10 +4,6 @@
     "a": "We are based in Staten Island (155 Highland Ave, 10301) and serve all Staten Island neighborhoods. We also work in Brooklyn, Manhattan, Queens and the Bronx. [SERVICE_AREAS_TO_CONFIRM]"
   },
   {
-    "q": "Are you licensed and insured?",
-    "a": "[TO_CONFIRM] Yes. GIG Technology works under NYC DOB license [LICENSE_NUMBER] and carries [INSURANCE]. Proof of insurance is available on request."
-  },
-  {
     "q": "Do you offer free estimates?",
     "a": "Yes. Request a quote online or call (718) 496-3230. We give you a clear, written estimate before any work begins."
   },

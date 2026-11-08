@@ -80,8 +80,6 @@ const socials = Object.entries(site.social).filter(([, url]) => !isPlaceholder(u
   <div class="footer__bottom">
     <div class="container footer__bottom-inner">
       <p>© {year} {site.legalName}. All rights reserved.</p>
-      <!-- TODO : à confirmer avec le client — license & insurance -->
-      <p set:html={`${mark(site.license.label)} #${mark(site.license.number)} · Insured: ${mark(site.insurance)}`} />
     </div>
   </div>
 </footer>

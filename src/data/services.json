@@ -9,14 +9,14 @@
     "imageFile": "service-plumbing.jpg",
     "seo": {
       "title": "Plumber in Staten Island, NY | GIG Technology",
-      "description": "Licensed plumber in Staten Island and NYC: emergency leak repair, drain cleaning, water heaters, gas lines and repiping. Free estimates. Call (718) 496-3230."
+      "description": "Plumber in Staten Island and NYC: emergency leak repair, drain cleaning, water heaters, gas lines and repiping. Free estimates. Call (718) 496-3230."
     },
     "hero": {
       "badge": "Plumbing",
       "title": "Plumbing services in",
       "highlight": "Staten Island",
       "titleEnd": "and across NYC",
-      "subtitle": "From a dripping faucet to a full building repipe, our licensed plumbers fix it right the first time, with clear pricing before any work begins."
+      "subtitle": "From a dripping faucet to a full building repipe, our plumbers fix it right the first time, with clear pricing before any work begins."
     },
     "intro": {
       "title": "Your plumbing needs, from",
@@ -41,7 +41,7 @@
       },
       {
         "title": "Gas line work",
-        "text": "Gas piping installation, repair and leak testing by a licensed professional."
+        "text": "Gas piping installation, repair and leak testing, done safely and to code."
       },
       {
         "title": "Repiping",
@@ -56,10 +56,6 @@
       {
         "q": "Do you handle plumbing emergencies at night?",
         "a": "[TO_CONFIRM] Yes, we respond to plumbing emergencies 24/7 in Staten Island. Call (718) 496-3230 and describe the problem; we will tell you right away when a plumber can be on site."
-      },
-      {
-        "q": "Can you file permits with the NYC Department of Buildings?",
-        "a": "[TO_CONFIRM] Yes. Work that requires a permit, such as gas piping or repiping, is filed with the NYC DOB under our Master Plumber license."
       },
       {
         "q": "Do you work on commercial buildings?",

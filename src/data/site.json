@@ -9,8 +9,8 @@
     "e164": "+17184963230",
     "href": "tel:+17184963230"
   },
-  "email": "gigtechnology@gmail.com",
-  "emailConfirmed": false,
+  "email": "contact@gigtechnology.pro",
+  "emailConfirmed": true,
   "address": {
     "street": "155 Highland Ave",
     "city": "Staten Island",
@@ -23,13 +23,9 @@
   },
   "hours": "[HOURS]",
   "emergencyHours": "[EMERGENCY_HOURS]",
-  "license": {
-    "label": "NYC DOB Licensed Master Plumber",
-    "number": "[LICENSE_NUMBER]"
-  },
-  "fireLicense": "[FIRE_SUPPRESSION_LICENSE_NUMBER]",
-  "insurance": "[INSURANCE]",
-  "certifications": ["[CERTIFICATIONS]"],
+  "certifications": [
+    "[CERTIFICATIONS]"
+  ],
   "yearsExperience": "[YEARS_EXPERIENCE]",
   "foundedYear": "[FOUNDED_YEAR]",
   "social": {
@@ -37,16 +33,40 @@
     "instagram": "[INSTAGRAM_URL]",
     "google": "[GOOGLE_BUSINESS_URL]"
   },
-  "areaServed": ["Staten Island", "New York City"],
+  "areaServed": [
+    "Staten Island",
+    "New York City"
+  ],
   "logo": "/logo.jpg",
   "ogImage": "/og-default.jpg",
   "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Plumbing", "href": "/plumbing" },
-    { "label": "Heating", "href": "/heating" },
-    { "label": "HVAC", "href": "/ventilation-hvac" },
-    { "label": "Fire Protection", "href": "/fire-protection" },
-    { "label": "Reviews", "href": "/#reviews" },
-    { "label": "Contact", "href": "/contact" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Plumbing",
+      "href": "/plumbing"
+    },
+    {
+      "label": "Heating",
+      "href": "/heating"
+    },
+    {
+      "label": "HVAC",
+      "href": "/ventilation-hvac"
+    },
+    {
+      "label": "Fire Protection",
+      "href": "/fire-protection"
+    },
+    {
+      "label": "Reviews",
+      "href": "/#reviews"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
   ]
 }

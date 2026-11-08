@@ -14,7 +14,7 @@ const a = home.about;
   -->
   <div class="container about">
     <div class="about__media">
-      <Media src={a.image} file={a.imageFile} alt="Licensed technician on a job site" ratio="auto" class="about__img" />
+      <Media src={a.image} file={a.imageFile} alt="GIG Technology technician in front of the company van" ratio="auto" class="about__img" />
     </div>
 
     <div class="about__text">
@@ -120,6 +120,14 @@ const a = home.about;
     .about__media :global(.about__img) {
       aspect-ratio: 4 / 3 !important;
       min-height: 0;
+    }
+    .about__media :global(.about__img img) {
+      object-position: 50% 15%;
+    }
+  }
+  @media (max-width: 600px) {
+    .about__media :global(.about__img) {
+      aspect-ratio: 4 / 5 !important;
     }
   }
   @media (max-width: 520px) {

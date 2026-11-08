@@ -18,14 +18,14 @@ Tout le contenu se trouve dans `src/data/` :
 
 | Fichier | Contenu |
 |---|---|
-| `site.json` | Nom, téléphone, email, adresse, horaires, licence, réseaux sociaux, menu |
+| `site.json` | Nom, téléphone, email, adresse, horaires, réseaux sociaux, menu |
 | `home.json` | Textes de la page d'accueil (hero, réassurance, about, compteurs, pourquoi nous, étapes, zones, devis) et page Contact |
 | `services.json` | Les 4 services : cartes, pages dédiées, SEO, prestations, FAQ propres à chaque service |
 | `faq.json` | FAQ générale |
 | `areas.json` | Arrondissements et quartiers desservis |
 | `reviews-demo.json` | Avis de démonstration, affichés seulement sans clé Google |
 
-Les valeurs entre crochets (`[HOURS]`, `[LICENSE_NUMBER]`…) sont des placeholders : le site les affiche surlignés en jaune. Dans le code, les zones correspondantes portent le commentaire `TODO : à confirmer avec le client`.
+Les valeurs entre crochets (`[HOURS]`, `[EMERGENCY_HOURS]`…) sont des placeholders : le site les affiche surlignés en jaune. Dans le code, les zones correspondantes portent le commentaire `TODO : à confirmer avec le client`.
 
 ## Variables d'environnement (Vercel → Settings → Environment Variables)
 
