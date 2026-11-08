@@ -2,12 +2,13 @@
 import home from '../data/home.json';
 import Icon from './Icon.astro';
 import Media from './Media.astro';
-import { mark } from '../lib/text';
+import { mark, usable } from '../lib/text';
 
 const a = home.about;
+const stats = home.stats.filter((s) => s.confirmed);
 ---
 
-<section class="section" id="about">
+<section class:list={['section', { 'about--nostats': stats.length === 0 }]} id="about">
   <!--
     Grid: image in column 1 spans both rows; text (row 1) and counters (row 2) in column 2.
     The image stretches, so its top edge aligns with the text top and its bottom edge with the counter cards.
@@ -20,7 +21,7 @@ const a = home.about;
     <div class="about__text">
       <span class="badge">{a.badge}</span>
       <h2>{a.title}{' '}<span class="hl">{a.highlight}</span>{a.titleEnd && ` ${a.titleEnd}`}</h2>
-      {a.paragraphs.map((p) => <p set:html={mark(p)} />)}
+      {a.paragraphs.filter(usable).map((p) => <p set:html={mark(p)} />)}
       <ul class="checks">
         {
           a.checks.map((c) => (
@@ -38,20 +39,22 @@ const a = home.about;
       </a>
     </div>
 
-    <!-- TODO : à confirmer avec le client — years of experience, projects, satisfaction -->
-    <ul class="about__stats">
-      {
-        home.stats.map((s) => (
-          <li class="stat">
-            <span class="stat__num">
-              <span data-count={s.value}>0</span>
-              {s.suffix}
-            </span>
-            <span class="stat__label">{s.label}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <!-- TODO : à confirmer avec le client — years of experience, projects, satisfaction (shown once "confirmed": true in home.json) -->
+    {
+      stats.length > 0 && (
+        <ul class="about__stats">
+          {stats.map((s) => (
+            <li class="stat">
+              <span class="stat__num">
+                <span data-count={s.value}>{new Intl.NumberFormat('en-US').format(s.value)}</span>
+                {s.suffix}
+              </span>
+              <span class="stat__label">{s.label}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
   </div>
 </section>
 
@@ -112,8 +115,14 @@ const a = home.about;
     line-height: 1.35;
   }
 
+  .about--nostats .about {
+    grid-template-rows: auto;
+    grid-template-areas: 'media text';
+    align-items: stretch;
+  }
   @media (max-width: 960px) {
-    .about {
+    .about,
+    .about--nostats .about {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas: 'text' 'media' 'stats';
     }
@@ -156,15 +165,18 @@ const a = home.about;
     };
     requestAnimationFrame(tick);
   };
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          animate(e.target as HTMLElement);
-          io.unobserve(e.target);
-        }
-      }),
-    { threshold: 0.5 }
-  );
-  counters.forEach((c) => io.observe(c));
+  // The final value is already in the HTML; the count-up only runs when the counter scrolls into view.
+  if ('IntersectionObserver' in window && counters.length) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            animate(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.5 }
+    );
+    counters.forEach((c) => io.observe(c));
+  }
 </script>

@@ -2,7 +2,7 @@
 import site from '../data/site.json';
 import services from '../data/services.json';
 import Icon from './Icon.astro';
-import { mark, isPlaceholder } from '../lib/text';
+import { mark, usable, isPlaceholder } from '../lib/text';
 
 const year = new Date().getFullYear();
 const socials = Object.entries(site.social).filter(([, url]) => !isPlaceholder(url));
@@ -68,11 +68,15 @@ const socials = Object.entries(site.social).filter(([, url]) => !isPlaceholder(u
             {site.address.street}<br />{site.address.city}, {site.address.state} {site.address.zip}
           </a>
         </li>
-        <li>
-          <Icon name="clock" size={18} />
-          <!-- TODO : à confirmer avec le client — hours -->
-          <span set:html={mark(site.hours)} />
-        </li>
+        <!-- TODO : à confirmer avec le client — hours (hidden until set in site.json) -->
+        {
+          usable(site.hours) && (
+            <li>
+              <Icon name="clock" size={18} />
+              <span set:html={mark(site.hours)} />
+            </li>
+          )
+        }
       </ul>
     </div>
   </div>

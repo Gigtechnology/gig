@@ -19,8 +19,8 @@
     },
     {
       "icon": "clock",
-      "title": "24/7 Emergency Service",
-      "text": "Burst pipe or no heat? Call anytime"
+      "title": "Emergency Calls",
+      "text": "Burst pipe or no heat? Call us now"
     },
     {
       "icon": "file",
@@ -51,19 +51,22 @@
       "value": 15,
       "suffix": "+",
       "label": "Years of experience",
-      "todo": "[YEARS_EXPERIENCE]"
+      "todo": "[YEARS_EXPERIENCE]",
+      "confirmed": false
     },
     {
       "value": 1200,
       "suffix": "+",
       "label": "Projects completed",
-      "todo": "[PROJECTS_COMPLETED]"
+      "todo": "[PROJECTS_COMPLETED]",
+      "confirmed": false
     },
     {
       "value": 98,
       "suffix": "%",
       "label": "Satisfied clients",
-      "todo": "[SATISFACTION_RATE]"
+      "todo": "[SATISFACTION_RATE]",
+      "confirmed": false
     }
   ],
   "whyUs": {
@@ -79,7 +82,7 @@
       {
         "icon": "clock",
         "title": "Fast response",
-        "text": "Same-day service when possible and around-the-clock help for emergencies."
+        "text": "Same-day service when possible and quick help when you have an emergency."
       },
       {
         "icon": "file",
@@ -163,5 +166,16 @@
     "highlight": "free estimate",
     "titleEnd": "today",
     "text": "Fill out the form and we'll get back to you quickly. For emergencies, call us directly."
+  },
+  "_statsReadme": "Counters are shown only when confirmed is true. Replace value/suffix with the real figures, then set confirmed to true.",
+  "emergency": {
+    "title": "Plumbing or heating emergency?",
+    "text": "Burst pipe, major leak or no heat: call us right away.",
+    "gas": "Smell gas? Leave the building first, then call 911 and your gas utility from outside."
+  },
+  "callback": {
+    "title": "Get a quick call back",
+    "text": "Pick a service, leave your number and ZIP code. We call you back.",
+    "button": "Call me back"
   }
 }

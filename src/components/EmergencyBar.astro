@@ -1,0 +1,86 @@
+---
+import home from '../data/home.json';
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+
+const e = home.emergency;
+---
+
+<!-- TODO : à confirmer avec le client — emergency availability (no 24/7 promise until confirmed) -->
+<section class="emg" aria-label="Emergency">
+  <div class="container emg__inner">
+    <div class="emg__text">
+      <strong>{e.title}</strong>
+      <span>{e.text}</span>
+      <small>
+        <Icon name="flame" size={15} />
+        {e.gas}
+      </small>
+    </div>
+    <a href={site.phone.href} class="emg__call">
+      <Icon name="phone" size={20} />
+      Call {site.phone.display}
+    </a>
+  </div>
+</section>
+
+<style>
+  .emg {
+    width: 100%;
+    background: var(--accent);
+    color: var(--navy-950); /* dark text on orange for AA contrast */
+  }
+  .emg__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+    padding-block: 22px;
+  }
+  .emg__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .emg__text strong {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+  }
+  .emg__text small {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 0.86rem;
+    font-weight: 600;
+  }
+  .emg__call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    min-height: 54px;
+    padding: 10px 26px;
+    border-radius: 999px;
+    background: var(--navy-950);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  .emg__call:hover {
+    background: var(--navy-800);
+    transform: translateY(-1px);
+  }
+  @media (max-width: 760px) {
+    .emg__inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .emg__call {
+      justify-content: center;
+    }
+  }
+</style>

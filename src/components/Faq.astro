@@ -3,7 +3,7 @@ import home from '../data/home.json';
 import defaultFaq from '../data/faq.json';
 import Icon from './Icon.astro';
 import SectionTitle from './SectionTitle.astro';
-import { mark } from '../lib/text';
+import { mark, usable } from '../lib/text';
 
 interface Props {
   items?: { q: string; a: string }[];
@@ -11,7 +11,9 @@ interface Props {
   highlight?: string;
   alt?: boolean;
 }
-const { items = defaultFaq, title = home.faq.title, highlight = home.faq.highlight, alt = false } = Astro.props;
+const { items: rawItems = defaultFaq, title = home.faq.title, highlight = home.faq.highlight, alt = false } = Astro.props;
+// Questions whose answer still depends on missing info (hours, payment methods…) are hidden
+const items = rawItems.filter((i) => usable(i.a));
 const group = 'faq';
 ---
 

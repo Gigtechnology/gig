@@ -1,0 +1,232 @@
+---
+import home from '../data/home.json';
+import Icon from './Icon.astro';
+import { SERVICE_OPTIONS } from '../lib/quote';
+
+const c = home.callback;
+---
+
+<form class="cb" method="post" action="/api/quote" novalidate data-callback-form aria-labelledby="cb-title">
+  <p class="cb__title" id="cb-title">
+    <Icon name="phone" size={18} />
+    {c.title}
+  </p>
+  <p class="cb__text">{c.text}</p>
+  <div class="cb__grid">
+    <div class="cb__field">
+      <label for="cb-service">Service</label>
+      <select id="cb-service" name="service" required>
+        <option value="">Choose…</option>
+        {SERVICE_OPTIONS.map((o) => <option value={o.value}>{o.label}</option>)}
+      </select>
+      <p class="cb__err" id="cb-service-err" aria-live="polite"></p>
+    </div>
+    <div class="cb__field">
+      <label for="cb-phone">Phone</label>
+      <input id="cb-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(718) 555-0123" required />
+      <p class="cb__err" id="cb-phone-err" aria-live="polite"></p>
+    </div>
+    <div class="cb__field">
+      <label for="cb-location">ZIP or borough</label>
+      <input id="cb-location" name="location" type="text" autocomplete="postal-code" placeholder="10301" required maxlength="80" />
+      <p class="cb__err" id="cb-location-err" aria-live="polite"></p>
+    </div>
+    <div class="cb__field cb__field--btn">
+      <button type="submit" class="btn btn--accent cb__btn"><span data-label>{c.button}</span></button>
+    </div>
+  </div>
+  <div class="hp" aria-hidden="true">
+    <label for="cb-company">Company website</label>
+    <input id="cb-company" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <p class="cb__status" role="status" aria-live="polite" data-status hidden></p>
+</form>
+
+<style>
+  .cb {
+    margin-top: 32px;
+    padding: 20px 22px 14px;
+    max-width: 640px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(6px);
+  }
+  .cb__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--white);
+  }
+  .cb__text {
+    margin: 4px 0 14px;
+    font-size: 0.92rem;
+    color: #b9c7ef;
+  }
+  .cb__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.1fr 0.9fr auto;
+    gap: 0 12px;
+    align-items: start;
+  }
+  .cb__field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .cb__field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #dbe4ff;
+    margin-bottom: 4px;
+  }
+  .cb__field input,
+  .cb__field select {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 12px;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    background: var(--white);
+    font: inherit;
+    color: var(--ink);
+  }
+  .cb__field input:focus,
+  .cb__field select:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 4px rgba(47, 123, 255, 0.35);
+  }
+  .cb__field [aria-invalid='true'] {
+    border-color: #ff8a80;
+  }
+  .cb__field--btn {
+    padding-top: 22px;
+  }
+  .cb__btn {
+    min-height: 48px;
+    padding: 8px 22px;
+  }
+  .cb__err {
+    min-height: 1.2em;
+    margin: 4px 0 6px;
+    font-size: 0.78rem;
+    color: #ffb4ab;
+  }
+  .cb__status {
+    margin: 4px 0 6px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.92rem;
+  }
+  .cb__status.is-ok {
+    background: rgba(22, 163, 74, 0.18);
+    color: #c6f6d5;
+  }
+  .cb__status.is-error {
+    background: rgba(198, 40, 40, 0.22);
+    color: #ffd6d1;
+  }
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) {
+    .cb__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cb__field:first-child {
+      grid-column: 1 / -1;
+    }
+    .cb__field--btn {
+      grid-column: 1 / -1;
+      padding-top: 0;
+    }
+    .cb__btn {
+      width: 100%;
+    }
+  }
+  @media (max-width: 380px) {
+    .cb__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { validateCallback, formatPhone } from '../lib/quote';
+
+  document.querySelectorAll<HTMLFormElement>('[data-callback-form]').forEach((form) => {
+    const loadedAt = Date.now();
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = btn.querySelector<HTMLElement>('[data-label]')!;
+    const original = label.textContent;
+    const fields = ['service', 'phone', 'location'] as const;
+
+    const read = () => {
+      const fd = new FormData(form);
+      return { service: String(fd.get('service') ?? ''), phone: String(fd.get('phone') ?? ''), location: String(fd.get('location') ?? '') };
+    };
+    const show = (errors: Record<string, string | undefined>, focus = false) => {
+      let first: HTMLElement | null = null;
+      fields.forEach((k) => {
+        const input = form.querySelector<HTMLElement>(`[name="${k}"]`)!;
+        const err = form.querySelector<HTMLElement>(`#cb-${k}-err`)!;
+        err.textContent = errors[k] ?? '';
+        input.setAttribute('aria-invalid', errors[k] ? 'true' : 'false');
+        input.setAttribute('aria-describedby', err.id);
+        if (errors[k] && !first) first = input;
+      });
+      if (focus && first) (first as HTMLElement).focus();
+    };
+
+    form.addEventListener('focusout', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.name === 'phone' && t.value) t.value = formatPhone(t.value);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.hidden = true;
+      const data = read();
+      const errors = validateCallback(data);
+      show(errors, true);
+      if (Object.keys(errors).length) return;
+      btn.disabled = true;
+      label.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...data, type: 'callback', ts: String(loadedAt), company_website: (form.elements.namedItem('company_website') as HTMLInputElement).value }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
+          form.reset();
+          show({});
+          status.className = 'cb__status is-ok';
+          status.textContent = json.simulated ? 'Thanks! (Local simulation: no email sent.)' : "Thanks! We'll call you back shortly.";
+        } else {
+          if (json.errors) show(json.errors, true);
+          status.className = 'cb__status is-error';
+          status.textContent = json.message ?? 'Something went wrong. Please call (718) 496-3230.';
+        }
+      } catch {
+        status.className = 'cb__status is-error';
+        status.textContent = 'Network error. Please call (718) 496-3230.';
+      } finally {
+        status.hidden = false;
+        btn.disabled = false;
+        label.textContent = original;
+      }
+    });
+  });
+</script>

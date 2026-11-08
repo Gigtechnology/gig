@@ -55,3 +55,17 @@ export function formatPhone(raw: string): string {
   if (d.length === 11 && d.startsWith('1')) d = d.slice(1);
   return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : raw;
 }
+
+/** Quick "call me back" form (hero): service + phone + borough/ZIP only */
+export interface CallbackInput {
+  service: string;
+  phone: string;
+  location: string;
+}
+
+export function validateCallback(input: Partial<CallbackInput>): Partial<Record<keyof CallbackInput, string>> {
+  const full = validateQuote({ name: 'Callback', email: 'callback@example.com', message: 'Callback request', urgent: 'no', ...input });
+  const e: Partial<Record<keyof CallbackInput, string>> = {};
+  for (const k of ['service', 'phone', 'location'] as const) if (full[k]) e[k] = full[k];
+  return e;
+}

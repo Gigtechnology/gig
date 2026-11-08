@@ -9,6 +9,8 @@ import { usDate, isPlaceholder } from '../lib/text';
 const data = await getReviews();
 const r = home.reviews;
 const googleUrl = data.url ?? (isPlaceholder(site.social.google) ? site.address.mapsUrl : site.social.google);
+// No Google Places key: no fake reviews, just a link to the real Google profile
+const live = data.source === 'google' && data.reviews.length > 0;
 const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(n));
 ---
 
@@ -16,6 +18,7 @@ const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(
   <div class="container">
     <SectionTitle badge={r.badge} title={r.title} highlight={r.highlight} titleEnd={r.titleEnd} />
 
+    {live ? (<Fragment>
     <div class="rv-summary">
       <span class="rv-g" aria-hidden="true">G</span>
       <div>
@@ -32,7 +35,6 @@ const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(
       <a href={googleUrl} class="btn btn--outline btn--sm" target="_blank" rel="noopener">See all on Google</a>
     </div>
 
-    {data.source === 'demo' && <p class="rv-demo-note">{/* TODO : à confirmer avec le client */}Example content — not real customer reviews.</p>}
 
     <div class="slider" data-slider>
       <div class="slider__track" data-track tabindex="0" aria-label="Customer reviews" role="region">
@@ -64,6 +66,16 @@ const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(
         <button type="button" class="slider__btn" data-next aria-label="Next reviews"><Icon name="chevronRight" size={22} /></button>
       </div>
     </div>
+    </Fragment>) : (
+      <div class="rv-cta">
+        <span class="rv-g" aria-hidden="true">G</span>
+        <div>
+          <strong>Read what our customers say on Google</strong>
+          <p>Real reviews from homeowners and businesses in Staten Island and NYC.</p>
+        </div>
+        <a href={googleUrl} class="btn btn--primary btn--plain" target="_blank" rel="noopener">See our Google reviews</a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -114,6 +126,29 @@ const stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < Math.round(
     min-height: 44px;
     padding: 6px 20px;
     font-size: 0.9rem;
+  }
+  .rv-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px 28px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(22px, 3vw, 34px);
+    border-radius: var(--radius-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--steel-200);
+    text-align: left;
+  }
+  .rv-cta strong {
+    font-family: var(--font-heading);
+    color: var(--navy-900);
+    font-size: 1.15rem;
+  }
+  .rv-cta p {
+    margin: 4px 0 0;
+    color: var(--ink-soft);
   }
   .rv-demo-note {
     text-align: center;

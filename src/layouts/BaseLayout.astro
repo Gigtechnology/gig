@@ -125,9 +125,14 @@ const schemas = [business, ...jsonLd];
             }),
           { threshold: 0.12 }
         );
-        els.forEach((el) => io.observe(el));
-      } else {
-        els.forEach((el) => el.classList.add('is-visible'));
+        // Only below-the-fold elements are hidden, and only once the observer is running
+        els.forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+          else io.observe(el);
+        });
+        document.documentElement.classList.add('reveal-ready');
+        // Failsafe: never leave content hidden
+        setTimeout(() => els.forEach((el) => el.classList.add('is-visible')), 3000);
       }
     </script>
   </body>

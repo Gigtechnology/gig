@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { RESEND_API_KEY, QUOTE_TO_EMAIL, QUOTE_FROM_EMAIL } from 'astro:env/server';
 import site from '../../data/site.json';
-import { validateQuote, formatPhone, SERVICE_OPTIONS, type QuoteInput } from '../../lib/quote';
+import { validateQuote, validateCallback, formatPhone, SERVICE_OPTIONS, type QuoteInput } from '../../lib/quote';
 
 export const prerender = false; // Vercel serverless function
 
@@ -34,15 +34,25 @@ export const POST: APIRoute = async ({ request }) => {
     message: String(body.message ?? '').trim(),
     urgent: String(body.urgent ?? '').trim(),
   };
-  const errors = validateQuote(data);
+  const isCallback = body.type === 'callback';
+  const errors = isCallback ? validateCallback(data) : validateQuote(data);
   if (Object.keys(errors).length) {
     return json({ ok: false, message: 'Please correct the highlighted fields.', errors }, 422);
   }
 
   const service = SERVICE_OPTIONS.find((o) => o.value === data.service)?.label ?? data.service;
   const urgent = data.urgent === 'yes';
-  const subject = `${urgent ? '[URGENT] ' : ''}New quote request: ${service} - ${data.name}`;
-  const rows: [string, string][] = [
+  const subject = isCallback
+    ? `Call back request: ${service} - ${formatPhone(data.phone)}`
+    : `${urgent ? '[URGENT] ' : ''}New quote request: ${service} - ${data.name}`;
+  const rows: [string, string][] = isCallback
+    ? [
+        ['Request', 'Please call this customer back'],
+        ['Phone', formatPhone(data.phone)],
+        ['Service', service],
+        ['Borough / ZIP', data.location],
+      ]
+    : [
     ['Name', data.name],
     ['Phone', formatPhone(data.phone)],
     ['Email', data.email],
@@ -70,7 +80,7 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify({
         from: QUOTE_FROM_EMAIL || 'GIG Technology Website <onboarding@resend.dev>',
         to: (QUOTE_TO_EMAIL || site.email).split(',').map((s) => s.trim()),
-        reply_to: data.email,
+        ...(isCallback ? {} : { reply_to: data.email }),
         subject,
         html,
         text,

@@ -8,8 +8,8 @@
     "a": "Yes. Request a quote online or call (718) 496-3230. We give you a clear, written estimate before any work begins."
   },
   {
-    "q": "Do you offer 24/7 emergency service?",
-    "a": "[TO_CONFIRM] Yes, for urgent problems like burst pipes, gas smells, major leaks or loss of heat. If you smell gas, leave the building and call 911 and your utility first."
+    "q": "Do you handle emergencies?",
+    "a": "[TO_CONFIRM] Yes. For burst pipes, major leaks or loss of heat, call (718) 496-3230. If you smell gas, leave the building first, then call 911 and your gas utility from outside."
   },
   {
     "q": "What are your business hours?",

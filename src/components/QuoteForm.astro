@@ -3,7 +3,7 @@ import home from '../data/home.json';
 import site from '../data/site.json';
 import Icon from './Icon.astro';
 import { SERVICE_OPTIONS } from '../lib/quote';
-import { mark } from '../lib/text';
+import { mark, usable } from '../lib/text';
 
 interface Props {
   preselect?: string;
@@ -35,7 +35,7 @@ const q = home.quote;
           <a href={`mailto:${site.email}`}>{site.email}</a>
         </li>
         <li><Icon name="pin" size={20} /><span>{site.address.full}</span></li>
-        <li><Icon name="clock" size={20} /><span set:html={mark(site.hours)} /></li>
+        {usable(site.hours) && <li><Icon name="clock" size={20} /><span set:html={mark(site.hours)} /></li>}
       </ul>
     </div>
 
