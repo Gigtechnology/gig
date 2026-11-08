@@ -2,6 +2,7 @@
 import { defineConfig, envField } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+import siteData from './src/data/site.json' with { type: 'json' };
 
 // Production domain (Vercel redirects gigtechnology.pro -> www)
 const SITE_URL = process.env.SITE_URL || 'https://www.gigtechnology.pro';
@@ -10,7 +11,7 @@ export default defineConfig({
   site: SITE_URL,
   output: 'static', // every page is prerendered; /api/quote opts out (prerender = false)
   adapter: vercel(),
-  integrations: [sitemap({ filter: (page) => !page.includes('/api/') && !page.includes('/thank-you') })],
+  integrations: siteData.maintenance ? [] : [sitemap({ filter: (page) => !page.includes('/api/') && !page.includes('/thank-you') })],
   env: {
     schema: {
       GOOGLE_PLACES_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),

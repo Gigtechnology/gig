@@ -11,6 +11,8 @@ const json = (body: unknown, status = 200) =>
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 export const POST: APIRoute = async ({ request }) => {
+  // Maintenance mode: the site is suspended, no request is accepted
+  if (site.maintenance) return json({ ok: false, message: 'This website is temporarily unavailable.' }, 503);
   let body: Record<string, unknown>;
   try {
     const type = request.headers.get('content-type') ?? '';

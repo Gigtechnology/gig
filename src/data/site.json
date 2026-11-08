@@ -1,5 +1,7 @@
 {
   "_readme": "Central business info. Values in [BRACKETS] are placeholders to confirm with the client.",
+  "maintenance": true,
+  "_maintenanceReadme": "true = the whole site shows a neutral \"temporarily unavailable\" page (noindex, quote form disabled). Set to false and push to put the full site back online.",
   "name": "GIG Technology",
   "legalName": "GIG Technology LLC",
   "tagline": "Doing God's Work",

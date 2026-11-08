@@ -15,6 +15,7 @@ import areas from '../data/areas.json';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
+import MaintenancePage from '../components/MaintenancePage.astro';
 import { isPlaceholder } from '../lib/text';
 
 interface Props {
@@ -74,6 +75,7 @@ const schemas = [business, ...jsonLd];
 ---
 
 <!doctype html>
+{site.maintenance ? <MaintenancePage /> : (
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
@@ -137,3 +139,4 @@ const schemas = [business, ...jsonLd];
     </script>
   </body>
 </html>
+)}
