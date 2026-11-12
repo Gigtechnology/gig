@@ -23,7 +23,7 @@ const socials = Object.entries(site.social).filter(([, url]) => !isPlaceholder(u
             {socials.map(([name, url]) => (
               <li>
                 <a href={url} rel="noopener" target="_blank">
-                  {name}
+                  {name === 'google' ? 'Google reviews' : name.charAt(0).toUpperCase() + name.slice(1)}
                 </a>
               </li>
             ))}

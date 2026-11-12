@@ -20,7 +20,7 @@
     {
       "icon": "clock",
       "title": "Emergency Calls",
-      "text": "Burst pipe or no heat? Call us now"
+      "text": "Burst pipe or no heat? Call us 24/7"
     },
     {
       "icon": "file",
@@ -170,7 +170,7 @@
   "_statsReadme": "Counters are shown only when confirmed is true. Replace value/suffix with the real figures, then set confirmed to true.",
   "emergency": {
     "title": "Plumbing or heating emergency?",
-    "text": "Burst pipe, major leak or no heat: call us right away.",
+    "text": "Burst pipe, major leak or no heat: call us right away, 24/7.",
     "gas": "Smell gas? Leave the building first, then call 911 and your gas utility from outside."
   },
   "callback": {

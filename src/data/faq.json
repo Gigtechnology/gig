@@ -9,11 +9,11 @@
   },
   {
     "q": "Do you handle emergencies?",
-    "a": "[TO_CONFIRM] Yes. For burst pipes, major leaks or loss of heat, call (718) 496-3230. If you smell gas, leave the building first, then call 911 and your gas utility from outside."
+    "a": "Yes, 24/7. For burst pipes, major leaks or loss of heat, call (718) 496-3230 day or night. If you smell gas, leave the building first, then call 911 and your gas utility from outside."
   },
   {
     "q": "What are your business hours?",
-    "a": "Our regular hours are [HOURS]. Emergency calls are handled [EMERGENCY_HOURS]."
+    "a": "We're open 24 hours a day, 7 days a week, including weekends and holidays. Emergency calls are answered 24/7."
   },
   {
     "q": "Which payment methods do you accept?",

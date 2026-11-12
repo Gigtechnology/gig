@@ -23,8 +23,8 @@
     "mapsUrl": "https://www.google.com/maps/search/?api=1&query=155+Highland+Ave%2C+Staten+Island%2C+NY+10301",
     "mapsEmbed": "https://maps.google.com/maps?q=155%20Highland%20Ave%2C%20Staten%20Island%2C%20NY%2010301&z=12&output=embed"
   },
-  "hours": "[HOURS]",
-  "emergencyHours": "[EMERGENCY_HOURS]",
+  "hours": "Open 24 hours, 7 days a week",
+  "emergencyHours": "24/7",
   "certifications": [
     "[CERTIFICATIONS]"
   ],
@@ -33,7 +33,7 @@
   "social": {
     "facebook": "[FACEBOOK_URL]",
     "instagram": "[INSTAGRAM_URL]",
-    "google": "[GOOGLE_BUSINESS_URL]"
+    "google": "https://maps.app.goo.gl/7YTDTge1PXy5Kg1Z7"
   },
   "areaServed": [
     "Staten Island",

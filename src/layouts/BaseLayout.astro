@@ -32,7 +32,7 @@ const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = new URL(image, siteUrl).href;
 
 // LocalBusiness structured data (Plumber + HVACBusiness)
-// TODO : à confirmer avec le client — opening hours, geo coordinates, social profiles
+// Open 24/7 (confirmed by the client, matches the Google Business Profile)
 const business: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': ['Plumber', 'HVACBusiness'],
@@ -66,7 +66,16 @@ const business: Record<string, unknown> = {
     })),
   },
   priceRange: '$$',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
 };
+if (!isPlaceholder(site.social.google)) business.hasMap = site.social.google;
 if (!isPlaceholder(site.email)) business.email = site.email;
 const sameAs = Object.values(site.social).filter((u) => !isPlaceholder(u));
 if (sameAs.length) business.sameAs = sameAs;
