@@ -103,6 +103,10 @@ const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, ima
       width: 64%;
       object-position: 50% 30%;
     }
+    /* Compact heroes are short: keep the technician's face in the visible band */
+    .hero--side.hero--compact .hero__bg {
+      object-position: 50% 12%;
+    }
     .hero--side::after {
       background: linear-gradient(
         90deg,
@@ -119,7 +123,8 @@ const { badge, highlight, title, titleEnd, highlightFirst = false, subtitle, ima
   }
   /* Phones & tablets: photo shown as a clear band on top, text below on navy */
   @media (max-width: 1100px) {
-    .hero--side {
+    .hero--side,
+    .hero--side.hero--compact {
       --band: min(66vw, 520px);
       padding-top: calc(var(--band) - 24px);
     }
