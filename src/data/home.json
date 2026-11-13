@@ -10,8 +10,9 @@
     "subtitle": "Homeowners, landlords and businesses trust GIG Technology for repairs, installations and inspections. Every job starts with a free, written estimate.",
     "image": "/images/hero-home.jpg",
     "imageFile": "hero-home.jpg",
-    "video": "/video/gig-hero.mp4",
-    "videoPoster": "/video/gig-hero-poster.jpg"
+    "video": "/video/gig-hero-vertical.mp4",
+    "videoPoster": "/video/gig-hero-vertical-poster.jpg",
+    "videoVertical": true
   },
   "trust": [
     {
