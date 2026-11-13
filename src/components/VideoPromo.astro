@@ -1,0 +1,110 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+---
+
+<section class="section section--dark" id="video">
+  <div class="container promo">
+    <div class="promo__player">
+      <!-- Plays muted when scrolled into view; viewers can unmute with the controls -->
+      <video
+        class="promo__video"
+        src="/video/gig-promo.mp4"
+        poster="/video/gig-promo-poster.jpg"
+        width="720"
+        height="1280"
+        muted
+        loop
+        playsinline
+        controls
+        preload="none"
+        aria-label="GIG Technology video: plumbing, heating and fire protection services"
+      ></video>
+    </div>
+
+    <div class="promo__text">
+      <span class="badge">See us at work</span>
+      <h2>One call for <span class="hl">plumbing, heating & fire protection</span></h2>
+      <p>
+        Leaks, no heat, sprinkler or standpipe issues: our licensed technicians handle it, with a free written estimate before any work starts.
+      </p>
+      <div class="btn-row">
+        <a href="#quote" class="btn btn--accent">
+          Get a Free Quote <span class="btn__arrow"><Icon name="arrow" size={18} /></span>
+        </a>
+        <a href={site.phone.href} class="btn btn--outline">
+          <Icon name="phone" size={18} /> Call {site.phone.display}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(32px, 6vw, 96px);
+  }
+  .promo__player {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    background: var(--navy-950);
+    aspect-ratio: 9 / 16;
+  }
+  .promo__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (min-width: 861px) {
+    .promo__text {
+      text-align: left;
+    }
+  }
+  .promo__text p {
+    color: #c9d6ff;
+    max-width: 560px;
+    margin-bottom: 32px;
+  }
+  .promo__text .btn--outline {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  @media (max-width: 860px) {
+    .promo {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .promo__player {
+      width: min(100%, 360px);
+      margin-inline: auto;
+      order: 2;
+    }
+  }
+</style>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('.promo__video');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (video && !reduced && 'IntersectionObserver' in window) {
+    let userPaused = false;
+    video.addEventListener('pause', () => {
+      if (video.dataset.auto !== '1') userPaused = true;
+      video.dataset.auto = '';
+    });
+    new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          if (!userPaused) video.play().catch(() => {});
+        } else if (!video.paused) {
+          video.dataset.auto = '1';
+          video.pause();
+        }
+      },
+      { threshold: 0.5 }
+    ).observe(video);
+  }
+</script>
