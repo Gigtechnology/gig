@@ -9,7 +9,9 @@
     "title": "experts in Staten Island and across New York City",
     "subtitle": "Homeowners, landlords and businesses trust GIG Technology for repairs, installations and inspections. Every job starts with a free, written estimate.",
     "image": "/images/hero-home.jpg",
-    "imageFile": "hero-home.jpg"
+    "imageFile": "hero-home.jpg",
+    "video": "/video/gig-hero.mp4",
+    "videoPoster": "/video/gig-hero-poster.jpg"
   },
   "trust": [
     {

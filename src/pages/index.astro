@@ -4,7 +4,6 @@ import Hero from '../components/Hero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import CallbackForm from '../components/CallbackForm.astro';
 import EmergencyBar from '../components/EmergencyBar.astro';
-import VideoPromo from '../components/VideoPromo.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import About from '../components/About.astro';
 import WhyUs from '../components/WhyUs.astro';
@@ -28,10 +27,9 @@ const faqSchema = {
 ---
 
 <BaseLayout title={home.seo.title} description={home.seo.description} jsonLd={[faqSchema]}>
-  <Hero badge={h.badge} highlight={h.titleHighlight} title={h.title} highlightFirst photoSide subtitle={h.subtitle} image={h.image} imageFile={h.imageFile} >
+  <Hero badge={h.badge} highlight={h.titleHighlight} title={h.title} highlightFirst photoSide subtitle={h.subtitle} image={h.image} imageFile={h.imageFile} video={h.video} videoPoster={h.videoPoster}>
     <CallbackForm />
   </Hero>
-  <VideoPromo />
   <TrustBar />
   <EmergencyBar />
   <ServicesGrid />
